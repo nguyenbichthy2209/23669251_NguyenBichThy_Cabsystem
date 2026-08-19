@@ -231,7 +231,7 @@ F04: Tính khoảng cách từ điểm đi đến điểm đón
 | NFR12 | Khả năng bảo trì | Có thể thay đổi một số thành phần kỹ thuật mà không phải xây dựng lại toàn bộ ứng dụng. |
 # Bước 11: Vẽ use case
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/84806b90-0d8d-4977-a9bb-c81b46e08680" />
-## Bước 12: Đặc tả Use Case
+# Bước 12: Đặc tả Use Case
 
 ### UC01 - Đăng ký tài khoản khách hàng
 
