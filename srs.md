@@ -30,11 +30,11 @@ Ma trận Stakeholder được sử dụng để xác định mức độ quyề
 | **Quyền lực cao** | **Duy trì sự hài lòng:** Nhà cung cấp thanh toán | **Quản lý chặt chẽ:** Ban lãnh đạo, Nhân viên vận hành |
 | **Quyền lực thấp** | **Theo dõi:** Chưa xác định | **Cập nhật thông tin thường xuyên:** Khách hàng, Tài xế |
         
-# Bước 3: Business Goal nên đặt tên là BG01...ví dụ BG01 tăng hiệu quả thanh toán thì mục đích->cho phép thanh toán bằng tiền mặt, chuyển khoản, onl.
-# Vd:BG01: giảm thời gian tim tài xế:
+# Bước 3: Business Goal 
+nên đặt tên là BG01...ví dụ BG01 tăng hiệu quả thanh toán thì mục đích->cho phép thanh toán bằng tiền mặt, chuyển khoản, onl.
+Vd:BG01: giảm thời gian tim tài xế:
   cho phép tìm tài xế tự động
 ## Business Goals
-## Bước 3: Business Goals
 
 - **BG01: Giảm thời gian tìm tài xế:** Cho phép hệ thống tự động tìm và phân công tài xế phù hợp.
 
