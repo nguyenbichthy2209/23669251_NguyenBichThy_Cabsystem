@@ -21,58 +21,56 @@ Trả lời: khách hàng muốn giải quyết vấn đề gì, tại sao ko th
 | Ban lãnh đạo (Management) | Đưa ra mục tiêu và yêu cầu kinh doanh; theo dõi báo cáo, doanh thu và hiệu quả hoạt động của hệ thống. |
 | Nhà cung cấp thanh toán | Đối tác bên ngoài thực hiện xử lý các giao dịch thanh toán điện tử cho hệ thống CAB. |
 # Vẽ ma trận stakeholder: để biết mức độ ảnh hưởng của các vai trò trong hệ thống
-                     MỨC ĐỘ QUAN TÂM
-              Thấp                 Cao
-        ┌──────────────────┬────────────────────────┐
- Quyền  │ DUY TRÌ SỰ       │   QUẢN LÝ CHẶT CHẼ     │
- lực    │ HÀI LÒNG         │                        │
- cao    │                  │ • Ban lãnh đạo         │
-        │ • Nhà cung cấp   │ • Nhân viên vận hành   │
-        │   thanh toán     │                        │
-        ├──────────────────┼────────────────────────┤
- Quyền  │     THEO DÕI     │ CẬP NHẬT THÔNG TIN     │
- lực    │                  │     THƯỜNG XUYÊN       │
- thấp   │ • Chưa xác định  │                        │
-        │                  │ • Khách hàng           │
-        │                  │ • Tài xế               │
-        └──────────────────┴────────────────────────┘
+                     ## Ma trận Stakeholder
+
+Ma trận Stakeholder được sử dụng để xác định mức độ quyền lực và mức độ quan tâm của các bên liên quan đối với hệ thống.
+
+| Quyền lực / Mức độ quan tâm | Quan tâm thấp | Quan tâm cao |
+|---|---|---|
+| **Quyền lực cao** | **Duy trì sự hài lòng:** Nhà cung cấp thanh toán | **Quản lý chặt chẽ:** Ban lãnh đạo, Nhân viên vận hành |
+| **Quyền lực thấp** | **Theo dõi:** Chưa xác định | **Cập nhật thông tin thường xuyên:** Khách hàng, Tài xế |
         
 # Bước 3: Business Goal nên đặt tên là BG01...ví dụ BG01 tăng hiệu quả thanh toán thì mục đích->cho phép thanh toán bằng tiền mặt, chuyển khoản, onl.
 # Vd:BG01: giảm thời gian tim tài xế:
   cho phép tìm tài xế tự động
 ## Business Goals
-BG01: Giảm thời gian tìm tài xế:
-Cho phép hệ thống tự động tìm tài xế dựa trên vị trí, trạng thái sẵn sàng và các tiêu chí vận hành.Ưu tiên tài xế phù hợp và gần khách hàng.
-BG02: Nâng cao trải nghiệm của khách hàng:
-Cho phép khách hàng theo dõi trạng thái chuyến đi.Cung cấp thông tin tài xế nhận chuyến và thời gian dự kiến tài xế đến.Thông báo cho khách hàng khi trạng thái chuyến đi thay đổi.
-BG03: Nâng cao hiệu quả vận hành:
-Giảm việc phân công tài xế thủ công.Cho phép nhân viên vận hành theo dõi các chuyến đang diễn ra và trạng thái tài xế.Hỗ trợ nhân viên xử lý các trường hợp chuyến đi gặp lỗi.
-BG04: Quản lý thanh toán tập trung:
-Quản lý thông tin tính cước và kết quả thanh toán của chuyến đi.Hỗ trợ thanh toán bằng tiền mặt và thanh toán điện tử.Tích hợp với nhà cung cấp thanh toán bên ngoài.
-BG05: Hỗ trợ quản lý và ra quyết định:
-Cung cấp báo cáo về số lượng chuyến và doanh thu.Theo dõi tỷ lệ chuyến hoàn thành và tỷ lệ hủy.Theo dõi hiệu quả hoạt động của tài xế.
-BG06: Đảm bảo khả năng mở rộng và phát triển lâu dài:
-Hỗ trợ số lượng lớn khách hàng và tài xế.Cho phép các thành phần hệ thống mở rộng độc lập khi tải tăng.Cho phép bổ sung loại dịch vụ, phương thức thanh toán và kênh thông báo mới trong tương lai.
+## Bước 3: Business Goals
 
-# Bước 4: Xác định phạm vi(scope): 
-# Trong phạm vi
--Quản lý khách hàng: tài khoản, thông tin cá nhân và lịch sử chuyến đi.
--Quản lý tài xế và phương tiện: hồ sơ, phương tiện, trạng thái hoạt động và vị trí.
--Đặt xe: điểm đón, điểm đến, loại xe và tạo yêu cầu chuyến.
--Tìm và phân công tài xế: tự động tìm tài xế phù hợp và xử lý khi tài xế từ chối/không phản hồi.
--Quản lý chuyến đi: theo dõi và cập nhật trạng thái chuyến.
--Tính cước và thanh toán: hỗ trợ tiền mặt và thanh toán điện tử.
--Thông báo: gửi thông báo liên quan đến đặt xe, tài xế, chuyến đi và thanh toán.
--Đánh giá sau chuyến: khách hàng đánh giá tài xế.
--Quản trị hệ thống: quản lý khách hàng, tài xế, phương tiện, chuyến đi và phân quyền.
--Báo cáo: số lượng chuyến, doanh thu, tỷ lệ hoàn thành, tỷ lệ hủy và hiệu quả tài xế.
-# Ngoài phạm vi
--Chi tiết cách tính cước.
--Tiêu chí ưu tiên tài xế.
--Thời gian tài xế phải phản hồi.
--Chính sách hủy chuyến.
--Cách xử lý khi mất kết nối mạng.
--Thời gian lưu trữ dữ liệu.
+- **BG01: Giảm thời gian tìm tài xế:** Cho phép hệ thống tự động tìm và phân công tài xế phù hợp.
+
+- **BG02: Nâng cao trải nghiệm khách hàng:** Cho phép khách hàng đặt xe và theo dõi trạng thái chuyến đi thuận tiện.
+
+- **BG03: Nâng cao hiệu quả vận hành:** Giảm việc phân công tài xế thủ công và hỗ trợ quản lý chuyến đi.
+
+- **BG04: Quản lý thanh toán tập trung:** Quản lý tính cước và kết quả thanh toán của chuyến đi.
+
+- **BG05: Hỗ trợ quản lý và ra quyết định:** Cung cấp báo cáo về chuyến đi, doanh thu và hiệu quả hoạt động.
+
+- **BG06: Đảm bảo khả năng mở rộng:** Hỗ trợ số lượng lớn khách hàng, tài xế và khả năng bổ sung chức năng trong tương lai.
+
+## Bước 4: Xác định phạm vi (Scope)
+
+### Trong phạm vi
+
+- Quản lý khách hàng: tài khoản, thông tin cá nhân và lịch sử chuyến đi.
+- Quản lý tài xế và phương tiện: hồ sơ, phương tiện, trạng thái hoạt động và vị trí.
+- Đặt xe: điểm đón, điểm đến, loại xe và tạo yêu cầu chuyến.
+- Tìm và phân công tài xế: tự động tìm tài xế phù hợp và xử lý khi tài xế từ chối hoặc không phản hồi.
+- Quản lý chuyến đi: theo dõi và cập nhật trạng thái chuyến.
+- Tính cước và thanh toán: hỗ trợ tiền mặt và thanh toán điện tử.
+- Thông báo: gửi thông báo liên quan đến đặt xe, tài xế, chuyến đi và thanh toán.
+- Đánh giá sau chuyến: khách hàng đánh giá tài xế.
+- Quản trị hệ thống: quản lý khách hàng, tài xế, phương tiện, chuyến đi và phân quyền.
+- Báo cáo: số lượng chuyến, doanh thu, tỷ lệ hoàn thành, tỷ lệ hủy và hiệu quả tài xế.
+
+### Ngoài phạm vi
+
+- Chi tiết cách tính cước.
+- Tiêu chí ưu tiên tài xế.
+- Thời gian tài xế phải phản hồi.
+- Chính sách hủy chuyến.
+- Cách xử lý khi mất kết nối mạng.
+- Thời gian lưu trữ dữ liệu.
 
 # Bước 5: Chuyển đổi Business Requirement
 VD: BR02:Tìm tài xế, hệ thống cho phép tìm tài xế phù hợp với chuyến đi
@@ -203,17 +201,18 @@ F04: Tính khoảng cách từ điểm đi đến điểm đón
 | EX06 | Mất kết nối mạng | Chưa xác định cách xử lý, cần làm rõ với khách hàng. |
 | EX07 | Khách hàng hủy chuyến | Chính sách hủy chuyến chưa được xác định, cần làm rõ với khách hàng. |
 | EX08 | Tài xế không phản hồi trong thời gian quy định | Thời gian phản hồi chưa được xác định, cần làm rõ với khách hàng. |
-# Bước 9: Mô hình hóa dữ liệu(Xác định các thực thể trong ERD)
-vd: Khách hàng(full name,id,email)
-Khách hàng (customer_id, full_name, email, phone, password, address)
-Tài xế (driver_id, full_name, email, phone, password, status, current_location)
-Phương tiện (vehicle_id, driver_id, vehicle_type, license_plate, vehicle_name)
-Chuyến đi (trip_id, customer_id, driver_id, pickup_location, destination, vehicle_type, status, start_time, end_time)
-Thanh toán (payment_id, trip_id, amount, payment_method, payment_status, payment_time)
-Đánh giá (rating_id, trip_id, customer_id, driver_id, score, comment)
-Thông báo (notification_id, user_id, content, notification_type, status, created_at)
-Nhân viên vận hành (operator_id, full_name, email, password, role)
-Lịch sử giao dịch (transaction_id, payment_id, amount, status, transaction_time)
+## Bước 9: Mô hình hóa dữ liệu
+### Xác định các thực thể trong ERD
+- **Khách hàng** (customer_id, full_name, email, phone, password, address)
+- **Tài xế** (driver_id, full_name, email, phone, password, status, current_location)
+- **Phương tiện** (vehicle_id, driver_id, vehicle_type, license_plate, vehicle_name)
+- **Chuyến đi** (trip_id, customer_id, driver_id, pickup_location, destination, vehicle_type, status, start_time, end_time)
+- **Thanh toán** (payment_id, trip_id, amount, payment_method, payment_status, payment_time)
+- **Đánh giá** (rating_id, trip_id, customer_id, driver_id, score, comment)
+- **Thông báo** (notification_id, user_id, content, notification_type, status, created_at)
+- **Nhân viên vận hành** (operator_id, full_name, email, password, role)
+- **Lịch sử giao dịch** (transaction_id, payment_id, amount, status, transaction_time)
+- 
 # Bước 10: Non functional requirement
 ## Non-Functional Requirements
 | Mã | Tên | Diễn giải |
@@ -232,9 +231,10 @@ Lịch sử giao dịch (transaction_id, payment_id, amount, status, transaction
 | NFR12 | Khả năng bảo trì | Có thể thay đổi một số thành phần kỹ thuật mà không phải xây dựng lại toàn bộ ứng dụng. |
 # Bước 11: Vẽ use case
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/84806b90-0d8d-4977-a9bb-c81b46e08680" />
-# Bước 12: Đặc tả use case
-## Đặc tả Use Case
+## Bước 12: Đặc tả Use Case
+
 ### UC01 - Đăng ký tài khoản khách hàng
+
 | Thuộc tính | Nội dung |
 |---|---|
 | **Mã Use Case** | UC01 |
@@ -260,7 +260,6 @@ Lịch sử giao dịch (transaction_id, payment_id, amount, status, transaction
 | **Hậu điều kiện** | Yêu cầu đặt xe được tạo và hệ thống bắt đầu tìm tài xế. |
 | **Luồng chính** | 1. Khách hàng nhập điểm đón.<br>2. Khách hàng nhập điểm đến.<br>3. Khách hàng chọn loại xe.<br>4. Khách hàng gửi yêu cầu đặt xe.<br>5. Hệ thống tiếp nhận yêu cầu.<br>6. Hệ thống bắt đầu tìm tài xế phù hợp. |
 | **Ngoại lệ** | Không tìm được tài xế → Hệ thống thông báo cho khách hàng. |
-
 ---
 
 ### UC03 - Tìm và phân công tài xế
