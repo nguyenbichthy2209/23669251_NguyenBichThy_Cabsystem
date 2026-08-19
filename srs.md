@@ -1,4 +1,4 @@
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/84806b90-0d8d-4977-a9bb-c81b46e08680" />
+
 # Bước 1: Xác định ngữ cảnh nghiệp vụ và vấn đề nghiệp vụ
 Trả lời: khách hàng muốn giải quyết vấn đề gì, tại sao ko thể đáp ứng, mục tiêu kinh doanh, gái trị hệ thống tạo ra so với hệ thống cũ, ai sẽ là người ử dụng hệ thống
 # Ngữ cảnh nghiệp vụ (Business Context)
@@ -43,19 +43,14 @@ Trả lời: khách hàng muốn giải quyết vấn đề gì, tại sao ko th
 ## Business Goals
 BG01: Giảm thời gian tìm tài xế:
 Cho phép hệ thống tự động tìm tài xế dựa trên vị trí, trạng thái sẵn sàng và các tiêu chí vận hành.Ưu tiên tài xế phù hợp và gần khách hàng.
-
 BG02: Nâng cao trải nghiệm của khách hàng:
 Cho phép khách hàng theo dõi trạng thái chuyến đi.Cung cấp thông tin tài xế nhận chuyến và thời gian dự kiến tài xế đến.Thông báo cho khách hàng khi trạng thái chuyến đi thay đổi.
-
 BG03: Nâng cao hiệu quả vận hành:
 Giảm việc phân công tài xế thủ công.Cho phép nhân viên vận hành theo dõi các chuyến đang diễn ra và trạng thái tài xế.Hỗ trợ nhân viên xử lý các trường hợp chuyến đi gặp lỗi.
-
 BG04: Quản lý thanh toán tập trung:
 Quản lý thông tin tính cước và kết quả thanh toán của chuyến đi.Hỗ trợ thanh toán bằng tiền mặt và thanh toán điện tử.Tích hợp với nhà cung cấp thanh toán bên ngoài.
-
 BG05: Hỗ trợ quản lý và ra quyết định:
 Cung cấp báo cáo về số lượng chuyến và doanh thu.Theo dõi tỷ lệ chuyến hoàn thành và tỷ lệ hủy.Theo dõi hiệu quả hoạt động của tài xế.
-
 BG06: Đảm bảo khả năng mở rộng và phát triển lâu dài:
 Hỗ trợ số lượng lớn khách hàng và tài xế.Cho phép các thành phần hệ thống mở rộng độc lập khi tải tăng.Cho phép bổ sung loại dịch vụ, phương thức thanh toán và kênh thông báo mới trong tương lai.
 
@@ -236,118 +231,125 @@ Lịch sử giao dịch (transaction_id, payment_id, amount, status, transaction
 | NFR11 | Khả năng mở rộng chức năng | Có thể bổ sung loại dịch vụ, phương thức thanh toán và nhà cung cấp thông báo mới mà không phải xây dựng lại toàn bộ hệ thống. |
 | NFR12 | Khả năng bảo trì | Có thể thay đổi một số thành phần kỹ thuật mà không phải xây dựng lại toàn bộ ứng dụng. |
 # Bước 11: Vẽ use case
-
-
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/84806b90-0d8d-4977-a9bb-c81b46e08680" />
 # Bước 12: Đặc tả use case
-## UC01 – Đăng ký tài khoản khách hàng
-Thuộc tính	Đặc tả
-Mã Use Case	UC01
-Tên Use Case	Đăng ký tài khoản khách hàng
-Actor	Khách hàng
-Mô tả	Cho phép khách hàng tạo tài khoản để sử dụng CAB System.
-Tiền điều kiện	Khách hàng chưa có tài khoản.
-Hậu điều kiện	Tài khoản khách hàng được tạo trong hệ thống.
-Luồng chính	
-1. Khách hàng chọn đăng ký.
-2. Nhập thông tin cá nhân.
-3. Gửi yêu cầu đăng ký.
-4. Hệ thống kiểm tra thông tin.
-5. Hệ thống tạo tài khoản.
-Ngoại lệ	Thông tin đăng ký không hợp lệ → hệ thống thông báo để khách hàng kiểm tra lại.
-## UC02 – Đặt xe
-Thuộc tính	Đặc tả
-Mã Use Case	UC02
-Tên Use Case	Đặt xe
-Actor	Khách hàng
-Mô tả	Cho phép khách hàng tạo yêu cầu đặt xe.
-Tiền điều kiện	Khách hàng đã được xác thực.
-Hậu điều kiện	Yêu cầu đặt xe được tạo và hệ thống bắt đầu tìm tài xế.
-Luồng chính	
-1. Khách hàng nhập điểm đón.
-2. Nhập điểm đến.
-3. Chọn loại xe.
-4. Gửi yêu cầu đặt xe.
-5. Hệ thống tiếp nhận yêu cầu.
-6. Hệ thống tiến hành tìm tài xế phù hợp.
-Ngoại lệ	Không tìm được tài xế → hệ thống thông báo cho khách hàng.
-## UC03 – Tìm và phân công tài xế
-Thuộc tính	Đặc tả
-Mã Use Case	UC03
-Tên Use Case	Tìm và phân công tài xế
-Actor	Khách hàng, Tài xế
-Mô tả	Hệ thống tìm tài xế phù hợp cho yêu cầu đặt xe.
-Tiền điều kiện	Khách hàng đã tạo yêu cầu đặt xe.
-Hậu điều kiện	Một tài xế được phân công cho chuyến hoặc khách hàng được thông báo không tìm được tài xế.
-Luồng chính	
-1. Hệ thống xác định vị trí liên quan đến yêu cầu.
-2. Tìm tài xế đang sẵn sàng.
-3. Xác định tài xế phù hợp dựa trên vị trí và các tiêu chí vận hành.
-4. Ưu tiên tài xế phù hợp và gần khách hàng.
-5. Gửi yêu cầu chuyến cho tài xế.
-6. Tài xế chấp nhận chuyến.
-7. Hệ thống phân công tài xế cho chuyến.
-8. Thông báo cho khách hàng.
-Ngoại lệ	Tài xế từ chối/không phản hồi → tìm tài xế khác.
-          Không còn tài xế phù hợp → thông báo cho khách hàng.
-## UC04 – Thực hiện chuyến đi
-Thuộc tính	Đặc tả
-Mã Use Case	UC04
-Tên Use Case	Thực hiện chuyến đi
-Actor	Tài xế
-Mô tả	Cho phép tài xế cập nhật trạng thái trong quá trình thực hiện chuyến.
-Tiền điều kiện	Tài xế đã chấp nhận và được phân công chuyến.
-Hậu điều kiện	Chuyến đi được hoàn thành và chuyển sang bước tính cước.
-Luồng chính	1. Tài xế di chuyển đến điểm đón.
-2. Cập nhật “Đã đến điểm đón”.
-3. Đón khách.
-4. Cập nhật “Đã đón khách”.
-5. Cập nhật “Đang di chuyển”.
-6. Đến điểm đến.
-7. Cập nhật “Hoàn thành chuyến”.
-Ngoại lệ	Chuyến gặp lỗi → nhân viên vận hành hỗ trợ xử lý.
-## UC05 – Thanh toán
-Thuộc tính	Đặc tả
-Mã Use Case	UC05
-Tên Use Case	Thanh toán
-Actor	Khách hàng, Nhà cung cấp thanh toán
-Mô tả	Xử lý thanh toán sau khi chuyến đi hoàn thành.
-Tiền điều kiện	Chuyến đi đã hoàn thành và cước phí đã được xác định.
-Hậu điều kiện	Kết quả thanh toán được ghi nhận và thông báo cho khách hàng.
-Luồng chính	1. Hệ thống xác định số tiền phải trả.
-2. Khách hàng chọn phương thức thanh toán.
-3. Nếu thanh toán điện tử, hệ thống gửi yêu cầu tới nhà cung cấp thanh toán.
-4. Nhận kết quả thanh toán.
-5. Ghi nhận kết quả.
-6. Thông báo cho khách hàng.
-Luồng thay thế	Khách hàng chọn thanh toán bằng tiền mặt.
-Ngoại lệ	Thanh toán điện tử thất bại → thông báo cho khách hàng và cho phép xử lý lại theo chính sách doanh nghiệp.
-## UC06 – Đánh giá tài xế
-Thuộc tính	Đặc tả
-Mã Use Case	UC06
-Tên Use Case	Đánh giá tài xế
-Actor	Khách hàng
-Mô tả	Cho phép khách hàng đánh giá tài xế sau chuyến đi.
-Tiền điều kiện	Chuyến đi đã hoàn thành.
-Hậu điều kiện	Đánh giá của khách hàng được ghi nhận.
-Luồng chính	1. Khách hàng chọn chuyến đã hoàn thành.
-2. Chọn chức năng đánh giá.
-3. Nhập đánh giá.
-4. Gửi đánh giá.
-5. Hệ thống lưu đánh giá.
-## UC07 – Quản lý vận hành
-Thuộc tính	Đặc tả
-Mã Use Case	UC07
-Tên Use Case	Quản lý vận hành
-Actor	Nhân viên vận hành
-Mô tả	Hỗ trợ nhân viên theo dõi và quản lý hoạt động CAB System.
-Tiền điều kiện	Nhân viên đã đăng nhập và có quyền phù hợp.
-Hậu điều kiện	Thông tin hoặc thao tác quản lý được cập nhật/ghi nhận.
-Luồng chính	1. Nhân viên đăng nhập.
-2. Chọn chức năng quản lý.
-3. Xem khách hàng, tài xế, phương tiện hoặc chuyến đi.
-4. Theo dõi chuyến đang diễn ra và trạng thái tài xế.
-5. Thực hiện thao tác được cấp quyền.
-Ngoại lệ	Không có quyền thực hiện thao tác → hệ thống từ chối truy cập.
+## Đặc tả Use Case
+### UC01 - Đăng ký tài khoản khách hàng
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC01 |
+| **Tên Use Case** | Đăng ký tài khoản khách hàng |
+| **Actor** | Khách hàng |
+| **Mô tả** | Cho phép khách hàng tạo tài khoản để sử dụng CAB System. |
+| **Tiền điều kiện** | Khách hàng chưa có tài khoản. |
+| **Hậu điều kiện** | Tài khoản khách hàng được tạo trong hệ thống. |
+| **Luồng chính** | 1. Khách hàng chọn đăng ký.<br>2. Khách hàng nhập thông tin cá nhân.<br>3. Khách hàng gửi yêu cầu đăng ký.<br>4. Hệ thống kiểm tra thông tin.<br>5. Hệ thống tạo tài khoản. |
+| **Ngoại lệ** | Thông tin không hợp lệ → Hệ thống thông báo cho khách hàng kiểm tra lại. |
+
+---
+
+### UC02 - Đặt xe
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC02 |
+| **Tên Use Case** | Đặt xe |
+| **Actor** | Khách hàng |
+| **Mô tả** | Cho phép khách hàng tạo yêu cầu đặt xe. |
+| **Tiền điều kiện** | Khách hàng đã đăng nhập và được xác thực. |
+| **Hậu điều kiện** | Yêu cầu đặt xe được tạo và hệ thống bắt đầu tìm tài xế. |
+| **Luồng chính** | 1. Khách hàng nhập điểm đón.<br>2. Khách hàng nhập điểm đến.<br>3. Khách hàng chọn loại xe.<br>4. Khách hàng gửi yêu cầu đặt xe.<br>5. Hệ thống tiếp nhận yêu cầu.<br>6. Hệ thống bắt đầu tìm tài xế phù hợp. |
+| **Ngoại lệ** | Không tìm được tài xế → Hệ thống thông báo cho khách hàng. |
+
+---
+
+### UC03 - Tìm và phân công tài xế
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC03 |
+| **Tên Use Case** | Tìm và phân công tài xế |
+| **Actor** | Khách hàng, Tài xế |
+| **Mô tả** | Tìm và phân công tài xế phù hợp cho yêu cầu đặt xe của khách hàng. |
+| **Tiền điều kiện** | Khách hàng đã tạo yêu cầu đặt xe. |
+| **Hậu điều kiện** | Tài xế được phân công cho chuyến hoặc khách hàng được thông báo không tìm được tài xế. |
+| **Luồng chính** | 1. Hệ thống xác định vị trí liên quan đến yêu cầu.<br>2. Hệ thống tìm tài xế đang sẵn sàng.<br>3. Hệ thống xác định tài xế phù hợp dựa trên vị trí và tiêu chí vận hành.<br>4. Hệ thống ưu tiên tài xế phù hợp và gần khách hàng.<br>5. Hệ thống gửi yêu cầu chuyến cho tài xế.<br>6. Tài xế chấp nhận chuyến.<br>7. Hệ thống phân công tài xế.<br>8. Hệ thống thông báo cho khách hàng. |
+| **Luồng thay thế** | Tài xế từ chối hoặc không phản hồi → Hệ thống tiếp tục tìm tài xế khác mà khách hàng không cần đặt lại. |
+| **Ngoại lệ** | Không tìm được tài xế phù hợp → Hệ thống thông báo rõ ràng cho khách hàng. |
+
+---
+
+### UC04 - Thực hiện chuyến đi
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC04 |
+| **Tên Use Case** | Thực hiện chuyến đi |
+| **Actor** | Tài xế |
+| **Mô tả** | Cho phép tài xế thực hiện và cập nhật trạng thái chuyến đi. |
+| **Tiền điều kiện** | Tài xế đã chấp nhận và được phân công chuyến. |
+| **Hậu điều kiện** | Chuyến đi được hoàn thành. |
+| **Luồng chính** | 1. Tài xế di chuyển đến điểm đón.<br>2. Tài xế cập nhật trạng thái "Đã đến điểm đón".<br>3. Tài xế đón khách.<br>4. Tài xế cập nhật "Đã đón khách".<br>5. Tài xế cập nhật "Đang di chuyển".<br>6. Tài xế đến điểm đến.<br>7. Tài xế cập nhật "Hoàn thành chuyến". |
+| **Ngoại lệ** | Chuyến đi gặp lỗi → Nhân viên vận hành hỗ trợ xử lý. |
+
+---
+
+### UC05 - Thanh toán
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC05 |
+| **Tên Use Case** | Thanh toán |
+| **Actor** | Khách hàng, Nhà cung cấp thanh toán |
+| **Mô tả** | Xử lý tính cước và thanh toán sau khi chuyến đi hoàn thành. |
+| **Tiền điều kiện** | Chuyến đi đã hoàn thành. |
+| **Hậu điều kiện** | Kết quả thanh toán được ghi nhận. |
+| **Luồng chính** | 1. Hệ thống xác định số tiền phải trả.<br>2. Hệ thống hiển thị số tiền.<br>3. Khách hàng chọn phương thức thanh toán.<br>4. Nếu thanh toán điện tử, hệ thống gửi yêu cầu đến nhà cung cấp thanh toán.<br>5. Hệ thống nhận kết quả giao dịch.<br>6. Hệ thống ghi nhận kết quả.<br>7. Hệ thống thông báo cho khách hàng. |
+| **Luồng thay thế** | Khách hàng chọn thanh toán bằng tiền mặt. |
+| **Ngoại lệ** | Thanh toán điện tử thất bại → Thông báo cho khách hàng và cho phép xử lý lại theo chính sách doanh nghiệp. |
+
+---
+
+### UC06 - Đánh giá tài xế
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC06 |
+| **Tên Use Case** | Đánh giá tài xế |
+| **Actor** | Khách hàng |
+| **Mô tả** | Cho phép khách hàng đánh giá tài xế sau chuyến đi. |
+| **Tiền điều kiện** | Chuyến đi đã hoàn thành. |
+| **Hậu điều kiện** | Đánh giá của khách hàng được lưu vào hệ thống. |
+| **Luồng chính** | 1. Khách hàng xem chuyến đã hoàn thành.<br>2. Khách hàng chọn chức năng đánh giá.<br>3. Khách hàng nhập đánh giá.<br>4. Khách hàng gửi đánh giá.<br>5. Hệ thống lưu kết quả đánh giá. |
+
+---
+
+### UC07 - Quản lý vận hành
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC07 |
+| **Tên Use Case** | Quản lý vận hành |
+| **Actor** | Nhân viên vận hành |
+| **Mô tả** | Cho phép nhân viên theo dõi và quản lý hoạt động của CAB System. |
+| **Tiền điều kiện** | Nhân viên đã đăng nhập và có quyền phù hợp. |
+| **Hậu điều kiện** | Các thao tác quản lý được hệ thống ghi nhận. |
+| **Luồng chính** | 1. Nhân viên đăng nhập.<br>2. Nhân viên chọn chức năng quản lý.<br>3. Xem thông tin khách hàng, tài xế, phương tiện hoặc chuyến đi.<br>4. Theo dõi các chuyến đang diễn ra.<br>5. Kiểm tra trạng thái tài xế.<br>6. Hỗ trợ xử lý chuyến gặp lỗi.<br>7. Hệ thống ghi nhận thao tác. |
+| **Ngoại lệ** | Nhân viên không có quyền thực hiện thao tác → Hệ thống từ chối truy cập. |
+
+---
+
+### UC08 - Xem báo cáo
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC08 |
+| **Tên Use Case** | Xem báo cáo |
+| **Actor** | Ban lãnh đạo / Người dùng có quyền |
+| **Mô tả** | Cho phép theo dõi các báo cáo về hoạt động kinh doanh của CAB System. |
+| **Tiền điều kiện** | Người dùng đã đăng nhập và có quyền xem báo cáo. |
+| **Hậu điều kiện** | Báo cáo được hiển thị cho người dùng. |
+| **Luồng chính** | 1. Người dùng chọn chức năng báo cáo.<br>2. Hệ thống tổng hợp dữ liệu.<br>3. Hệ thống hiển thị số lượng chuyến.<br>4. Hiển thị doanh thu.<br>5. Hiển thị tỷ lệ chuyến hoàn thành và tỷ lệ hủy.<br>6. Hiển thị hiệu quả hoạt động của tài xế. |
+| **Ngoại lệ** | Người dùng không có quyền → Hệ thống từ chối truy cập. |
 # Bước 13: Tiêu chí chấp nhận (Acceptance Criteria)- nhờ nó mới được nghiệm thu, cho biết khi nào dự án hoàn thành và được nghiệm thu
 ## Tiêu chí chấp nhận (Acceptance Criteria)
 | Mã | Chức năng | Tiêu chí chấp nhận |
@@ -372,7 +374,6 @@ Ngoại lệ	Không có quyền thực hiện thao tác → hệ thống từ ch
 # Bước 14: Truy xuất nguồn gốc yêu cầu(Traceability requirements)-RTM(ma trận truy xuất nguồn gốc yêu cầu)
 ## Truy xuất nguồn gốc yêu cầu
 ## Requirement Traceability Matrix (RTM)
-
 | ID | Business Goal | Business Requirement | Functional Requirement | Use Case | Acceptance Criteria |
 |---|---|---|---|---|---|
 | RTM01 | BG01 - Giảm thời gian tìm tài xế | BR02 - Tìm và phân công tài xế | FR10-FR17 - Xác định vị trí, tìm và phân công tài xế | UC03 - Tìm và phân công tài xế | AC04-AC07 |
