@@ -375,19 +375,19 @@ F04: Tính khoảng cách từ điểm đi đến điểm đón
 | AC15 | Quản lý vận hành | Nhân viên vận hành có thể theo dõi chuyến, trạng thái tài xế và hỗ trợ xử lý chuyến gặp lỗi. |
 | AC16 | Phân quyền | Người dùng không có quyền không thể thực hiện các thao tác quản trị nhạy cảm. |
 | AC17 | Báo cáo | Hệ thống cung cấp báo cáo về số chuyến, doanh thu, tỷ lệ hoàn thành, tỷ lệ hủy và hiệu quả tài xế. |
-# Bước 14: Truy xuất nguồn gốc yêu cầu(Traceability requirements)-RTM(ma trận truy xuất nguồn gốc yêu cầu)
+# Bước 14: Truy xuất nguồn gốc yêu cầu (Traceability Requirements) - RTM (Ma trận truy xuất nguồn gốc yêu cầu)
 ## Truy xuất nguồn gốc yêu cầu
 ## Requirement Traceability Matrix (RTM)
 | ID | Business Goal | Business Requirement | Functional Requirement | Use Case | Acceptance Criteria |
 |---|---|---|---|---|---|
-| RTM01 | BG01 - Giảm thời gian tìm tài xế | BR02 - Tìm và phân công tài xế | FR10-FR17 - Xác định vị trí, tìm và phân công tài xế | UC03 - Tìm và phân công tài xế | AC04-AC07 |
-| RTM02 | BG02 - Nâng cao trải nghiệm khách hàng | BR01 - Quản lý đặt xe | FR06-FR09 - Tạo yêu cầu đặt xe | UC02 - Đặt xe | AC03 |
-| RTM03 | BG02 - Nâng cao trải nghiệm khách hàng | BR03 - Quản lý chuyến đi | FR27-FR34 - Theo dõi và cập nhật trạng thái chuyến | UC04 - Thực hiện chuyến đi | AC08-AC09 |
-| RTM04 | BG02 - Nâng cao trải nghiệm khách hàng | BR04 - Quản lý khách hàng | FR01-FR05 - Đăng ký, đăng nhập, cập nhật và xem thông tin, lịch sử chuyến | UC01 - Đăng ký tài khoản | AC01-AC02 |
-| RTM05 | BG03 - Nâng cao hiệu quả vận hành | BR05 - Quản lý tài xế và phương tiện | FR18-FR26 - Quản lý hồ sơ, phương tiện, trạng thái và nhận chuyến | UC04 - Thực hiện chuyến đi | AC02, AC09 |
-| RTM06 | BG04 - Quản lý thanh toán tập trung | BR06 - Tính cước và thanh toán | FR35-FR43 - Tính cước và xử lý thanh toán | UC05 - Thanh toán | AC10-AC12 |
-| RTM07 | BG02 - Nâng cao trải nghiệm khách hàng | BR07 - Quản lý thông báo | FR44-FR50 - Gửi thông báo cho khách hàng và tài xế | UC02, UC03, UC04, UC05 | AC13 |
-| RTM08 | BG02 - Nâng cao trải nghiệm khách hàng | BR08 - Đánh giá tài xế | FR51-FR53 - Gửi và lưu đánh giá tài xế | UC06 - Đánh giá tài xế | AC14 |
-| RTM09 | BG03 - Nâng cao hiệu quả vận hành | BR09 - Quản lý vận hành | FR54-FR63 - Quản lý và giám sát hoạt động hệ thống | UC07 - Quản lý vận hành | AC15-AC16 |
-| RTM10 | BG05 - Hỗ trợ quản lý kinh doanh | BR10 - Báo cáo hoạt động | FR64-FR68 - Thống kê và báo cáo hoạt động | UC08 - Xem báo cáo | AC17 |
-| RTM11 | BG06 - Tăng khả năng mở rộng | Yêu cầu khả năng mở rộng | NFR02, NFR03, NFR11, NFR12 | Không áp dụng trực tiếp | Kiểm thử khả năng mở rộng |
+| RTM01 | BG01 - Giảm thời gian tìm tài xế | BR04 - Tìm tài xế | FR14-FR19 - Tìm, ưu tiên, gửi yêu cầu và tìm tài xế thay thế | UC03 - Tìm và phân công tài xế | AC04-AC07 |
+| RTM02 | BG02 - Nâng cao trải nghiệm khách hàng | BR02 - Quản lý đặt xe | FR10-FR13 - Nhập thông tin và gửi yêu cầu đặt xe | UC02 - Đặt xe | AC03 |
+| RTM03 | BG02 - Nâng cao trải nghiệm khách hàng | BR05 - Quản lý chuyến đi | FR20-FR23 - Hiển thị thông tin và theo dõi trạng thái chuyến | UC04 - Thực hiện chuyến đi | AC08-AC09 |
+| RTM04 | BG02 - Nâng cao trải nghiệm khách hàng | BR01 - Quản lý khách hàng | FR01-FR04 - Đăng ký, đăng nhập, cập nhật thông tin và xem lịch sử chuyến | UC01 - Đăng ký tài khoản khách hàng | AC01-AC02 |
+| RTM05 | BG03 - Nâng cao hiệu quả vận hành | BR03 - Quản lý tài xế | FR05-FR09 - Quản lý tài khoản, hồ sơ, phương tiện, trạng thái và vị trí tài xế | UC03, UC04, UC07 | AC02, AC05, AC09, AC15 |
+| RTM06 | BG04 - Quản lý thanh toán tập trung | BR06 - Quản lý thanh toán | FR24-FR30 - Tính cước và xử lý thanh toán | UC05 - Thanh toán | AC10-AC12 |
+| RTM07 | BG02 - Nâng cao trải nghiệm khách hàng | BR07 - Quản lý thông báo | FR31-FR32 - Gửi thông báo cho khách hàng và tài xế | UC02, UC03, UC04, UC05 | AC13 |
+| RTM08 | BG02 - Nâng cao trải nghiệm khách hàng | BR08 - Đánh giá tài xế | FR33 - Gửi đánh giá tài xế | UC06 - Đánh giá tài xế | AC14 |
+| RTM09 | BG03 - Nâng cao hiệu quả vận hành | BR09 - Quản lý vận hành | FR34-FR39 - Quản lý và giám sát hoạt động hệ thống | UC07 - Quản lý vận hành | AC15-AC16 |
+| RTM10 | BG05 - Hỗ trợ quản lý và ra quyết định | BR10 - Báo cáo hoạt động | FR40 - Xem báo cáo hoạt động | UC08 - Xem báo cáo | AC17 |
+| RTM11 | BG06 - Đảm bảo khả năng mở rộng | Yêu cầu khả năng mở rộng | NFR02, NFR03, NFR11, NFR12 - Khả năng mở rộng và bảo trì hệ thống | Không áp dụng trực tiếp | Kiểm thử khả năng mở rộng |
