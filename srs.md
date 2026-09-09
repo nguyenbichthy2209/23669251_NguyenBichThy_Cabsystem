@@ -104,7 +104,7 @@ VD: khách hàng tạo chuyến đi, hệ thống xác nhận(vị trí đón,đ
 - Khách hàng đăng nhập.
 - Khách hàng nhập điểm đón.
 - Khách hàng nhập điểm đến.
-- Khách hàng chọn loại xe.
+- Khách hàng chọn phương thức thanh toán.
 - Khách hàng gửi yêu cầu đặt xe.
 - Hệ thống tạo chuyến.
 - Hệ thống chuyển chuyến sang trạng thái Đang tìm tài xế.
@@ -122,7 +122,6 @@ VD: khách hàng tạo chuyến đi, hệ thống xác nhận(vị trí đón,đ
 - Tài xế thực hiện chuyến đi.
 - Tài xế hoàn thành chuyến.
 - Hệ thống tính số tiền phải trả.
-- Khách hàng chọn phương thức thanh toán.
 - Hệ thống ghi nhận kết quả thanh toán.
 - Khách hàng có thể đánh giá tài xế.
 # Bước 7: Viết functional requirement phân rã yêu cầu về chức năng
