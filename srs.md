@@ -1,6 +1,6 @@
 
 # Bước 1: Xác định ngữ cảnh nghiệp vụ và vấn đề nghiệp vụ
-Trả lời: khách hàng muốn giải quyết vấn đề gì, tại sao ko thể đáp ứng, mục tiêu kinh doanh, gái trị hệ thống tạo ra so với hệ thống cũ, ai sẽ là người ử dụng hệ thống
+Trả lời: khách hàng muốn giải quyết vấn đề gì, tại sao ko thể đáp ứng, mục tiêu kinh doanh, gía trị hệ thống tạo ra so với hệ thống cũ, ai sẽ là người sử dụng hệ thống
 # Ngữ cảnh nghiệp vụ (Business Context)
 - Công ty ABC là doanh nghiệp cung cấp dịch vụ đặt xe trực tuyến. Hiện tại, khách hàng đặt xe bằng cách liên hệ tổng đài hoặc sử dụng một ứng dụng đơn giản. Quy trình hoạt động liên quan đến khách hàng đặt chuyến, doanh nghiệp tìm và phân công tài xế, tài xế thực hiện chuyến đi, sau đó tính cước và thanh toán.Do nhu cầu phục vụ số lượng lớn khách hàng và tài xế cũng như nhu cầu mở rộng trong tương lai, công ty muốn xây dựng CAB System – một nền tảng đặt xe mới, phục vụ ít nhất ba nhóm người dùng chính: khách hàng, tài xế và nhân viên vận hành.
 # Vấn đề nghiệp vụ (Business Problem)
@@ -16,7 +16,7 @@ Trả lời: khách hàng muốn giải quyết vấn đề gì, tại sao ko th
 | Stakeholder | Vai trò |
 |---|---|
 | Khách hàng (Customer) | Người sử dụng dịch vụ đặt xe; thực hiện đặt xe, theo dõi chuyến đi, thanh toán và đánh giá tài xế. |
-| Tài xế (Driver) | Người cung cấp dịch vụ vận chuyển; nhận hoặc từ chối chuyến, thực hiện chuyến và cập nhật trạng thái chuyến đi. |
+| Tài xế (Driver) | Người cung cấp dịch vụ vận chuyển; nhận hoặc từ chối chuyến, cập nhật trạng thái chuyến đi. |
 | Nhân viên vận hành (Operator) | Quản lý khách hàng, tài xế, phương tiện và chuyến đi; theo dõi hoạt động và hỗ trợ xử lý sự cố. |
 | Ban lãnh đạo (Management) | Đưa ra mục tiêu và yêu cầu kinh doanh; theo dõi báo cáo, doanh thu và hiệu quả hoạt động của hệ thống. |
 | Nhà cung cấp thanh toán | Đối tác bên ngoài thực hiện xử lý các giao dịch thanh toán điện tử cho hệ thống CAB. |
@@ -44,7 +44,7 @@ Vd:BG01: giảm thời gian tim tài xế:
 
 - **BG04: Quản lý thanh toán tập trung:** Quản lý tính cước và kết quả thanh toán của chuyến đi.
 
-- **BG05: Hỗ trợ quản lý và ra quyết định:** Cung cấp báo cáo về chuyến đi, doanh thu và hiệu quả hoạt động.
+- **BG05: Hỗ trợ quản lý và ra quyết định:** Cung cấp dữ liệu về chuyến đi, doanh thu và hiệu quả hoạt động.
 
 - **BG06: Đảm bảo khả năng mở rộng:** Hỗ trợ số lượng lớn khách hàng, tài xế và khả năng bổ sung chức năng trong tương lai.
 
@@ -52,16 +52,26 @@ Vd:BG01: giảm thời gian tim tài xế:
 
 ### Trong phạm vi
 
-- Quản lý khách hàng: tài khoản, thông tin cá nhân và lịch sử chuyến đi.
-- Quản lý tài xế và phương tiện: hồ sơ, phương tiện, trạng thái hoạt động và vị trí.
-- Đặt xe: điểm đón, điểm đến, loại xe và tạo yêu cầu chuyến.
-- Tìm và phân công tài xế: tự động tìm tài xế phù hợp và xử lý khi tài xế từ chối hoặc không phản hồi.
-- Quản lý chuyến đi: theo dõi và cập nhật trạng thái chuyến.
-- Tính cước và thanh toán: hỗ trợ tiền mặt và thanh toán điện tử.
-- Thông báo: gửi thông báo liên quan đến đặt xe, tài xế, chuyến đi và thanh toán.
-- Đánh giá sau chuyến: khách hàng đánh giá tài xế.
-- Quản trị hệ thống: quản lý khách hàng, tài xế, phương tiện, chuyến đi và phân quyền.
-- Báo cáo: số lượng chuyến, doanh thu, tỷ lệ hoàn thành, tỷ lệ hủy và hiệu quả tài xế.
+- Quản lý tài khoản khách hàng.
+- Quản lý thông tin tài xế.
+- Quản lý phương tiện.
+- Quản lý trạng thái hoạt động của tài xế.
+- Quản lý vị trí hiện tại của tài xế.
+- Tạo yêu cầu đặt xe.
+- Tìm tài xế phù hợp.
+- Gửi yêu cầu chuyến cho tài xế.
+- Xử lý tài xế chấp nhận hoặc từ chối chuyến.
+- Tìm tài xế khác khi tài xế không nhận chuyến.
+- Theo dõi trạng thái chuyến.
+- Tính cước sau khi hoàn thành chuyến.
+- Thanh toán bằng tiền mặt.
+- Thanh toán điện tử.
+- Gửi thông báo liên quan đến chuyến đi.
+- Xem lịch sử chuyến đi.
+- Đánh giá tài xế.
+- Quản lý vận hành.
+- Phân quyền chức năng quản trị.
+- Báo cáo hoạt động.
 
 ### Ngoài phạm vi
 
@@ -78,20 +88,43 @@ VD: BR03: Theo dõi chuyến đi: kh có thể theo dõi chuyến đi trong quá
 # Business Requirements
 | Mã | Tên | Diễn giải |
 |---|---|---|
-| BR01 | Quản lý đặt xe | Hỗ trợ khách hàng tạo yêu cầu đặt xe theo điểm đón, điểm đến và loại xe. |
-| BR02 | Tìm và phân công tài xế | Tự động tìm tài xế phù hợp, ưu tiên tài xế gần và sẵn sàng nhận chuyến. |
-| BR03 | Quản lý chuyến đi | Theo dõi và cập nhật trạng thái chuyến đi từ khi đặt xe đến khi hoàn thành. |
-| BR04 | Quản lý khách hàng | Quản lý tài khoản, thông tin cá nhân và lịch sử chuyến đi của khách hàng. |
-| BR05 | Quản lý tài xế và phương tiện | Quản lý hồ sơ tài xế, phương tiện, vị trí và trạng thái hoạt động. |
-| BR06 | Tính cước và thanh toán | Tính tiền chuyến đi và hỗ trợ thanh toán bằng tiền mặt hoặc điện tử. |
+| BR01 | Quản lý khách hàng | Hỗ trợ khách hàng sử dụng tài khoản và xem lịch sử chuyến. |
+| BR02 | Quản lý đặt xe | Tự động tìm tài xế phù hợp, ưu tiên tài xế gần và sẵn sàng nhận chuyến |
+| BR03 | Quản lý tài xế | Quản lý hồ sơ, phương tiện, trạng thái và vị trí tài xế. |
+| BR04 | Tìm tài xế | Tìm tài xế phù hợp cho yêu cầu đặt xe. |
+| BR05 | Quản lý chuyến đi | Theo dõi trạng thái chuyến từ lúc tạo đến khi hoàn thành. |
+| BR06 | Quản lý thanh toán | Tính cước và ghi nhận kết quả thanh toán. |
 | BR07 | Quản lý thông báo | Gửi thông báo cho khách hàng và tài xế về các sự kiện liên quan đến chuyến đi. |
 | BR08 | Đánh giá tài xế | Cho phép khách hàng đánh giá tài xế sau khi chuyến đi hoàn thành. |
 | BR09 | Quản lý vận hành | Hỗ trợ nhân viên theo dõi chuyến đi, tài xế và xử lý các trường hợp gặp sự cố. |
 | BR10 | Báo cáo hoạt động | Cung cấp báo cáo về chuyến đi, doanh thu, tỷ lệ hoàn thành, tỷ lệ hủy và hiệu quả tài xế. |
-| BR11 | Khả năng mở rộng | Hỗ trợ số lượng lớn người dùng và cho phép bổ sung dịch vụ, thanh toán, thông báo trong tương lai. |
 
 # Bước 6: Business Process(Quy trình nghiệp vụ)
 VD: khách hàng tạo chuyến đi, hệ thống xác nhận(vị trí đón,đến),tìm tài xế, 
+- Khách hàng đăng nhập.
+- Khách hàng nhập điểm đón.
+- Khách hàng nhập điểm đến.
+- Khách hàng chọn loại xe.
+- Khách hàng gửi yêu cầu đặt xe.
+- Hệ thống tạo chuyến.
+- Hệ thống chuyển chuyến sang trạng thái Đang tìm tài xế.
+- Hệ thống tìm tài xế đang sẵn sàng.
+- Hệ thống lựa chọn tài xế phù hợp.
+- Hệ thống gửi yêu cầu chuyến cho tài xế.
+- Tài xế phản hồi yêu cầu chuyến.
+- Nếu tài xế từ chối hoặc không phản hồi, hệ thống tìm tài xế khác.
+- Nếu không tìm được tài xế, hệ thống thông báo cho khách hàng.
+- Nếu tài xế chấp nhận, hệ thống phân công tài xế cho chuyến.
+- Khách hàng xem thông tin tài xế và thời gian dự kiến đến.
+- Tài xế đến điểm đón.
+- Tài xế cập nhật trạng thái chuyến.
+- Tài xế đón khách.
+- Tài xế thực hiện chuyến đi.
+- Tài xế hoàn thành chuyến.
+- Hệ thống tính số tiền phải trả.
+- Khách hàng chọn phương thức thanh toán.
+- Hệ thống ghi nhận kết quả thanh toán.
+- Khách hàng có thể đánh giá tài xế.
 # Bước 7: Viết functional requirement phân rã yêu cầu về chức năng
 VD: FR01:Xác định vị trí khách
 FR02:Tìm tài xế sẵn có
@@ -103,79 +136,52 @@ F04: Tính khoảng cách từ điểm đi đến điểm đón
 - FR01: Đăng ký tài khoản khách hàng.
 - FR02: Đăng nhập hệ thống.
 - FR03: Cập nhật thông tin cá nhân.
-- FR04: Xem thông tin cá nhân.
-- FR05: Xem lịch sử chuyến đi.
-## Đặt xe và tìm tài xế
-- FR06: Nhập điểm đón.
-- FR07: Nhập điểm đến.
-- FR08: Lựa chọn loại xe.
-- FR09: Gửi yêu cầu đặt xe.
-- FR10: Xác định vị trí khách hàng.
-- FR11: Tìm tài xế đang sẵn sàng.
-- FR12: Lọc tài xế theo loại xe phù hợp.
-- FR13: Tính khoảng cách giữa tài xế và điểm đón.
-- FR14: Ưu tiên tài xế gần và phù hợp.
-- FR15: Gửi yêu cầu chuyến đến tài xế.
-- FR16: Tìm tài xế khác khi tài xế từ chối hoặc không phản hồi.
-- FR17: Thông báo cho khách hàng khi không tìm được tài xế.
+- FR04: Xem lịch sử chuyến đi.
 ## Quản lý tài xế
-- FR18: Đăng ký tài khoản tài xế.
-- FR19: Đăng nhập tài khoản tài xế.
-- FR20: Cập nhật hồ sơ tài xế.
-- FR21: Cập nhật thông tin phương tiện.
-- FR22: Cập nhật trạng thái sẵn sàng nhận chuyến.
-- FR23: Cập nhật vị trí tài xế.
-- FR24: Nhận thông báo chuyến mới.
-- FR25: Chấp nhận chuyến.
-- FR26: Từ chối chuyến.
-## Quản lý chuyến đi
-- FR27: Hiển thị trạng thái đang tìm tài xế.
-- FR28: Hiển thị thông tin tài xế nhận chuyến.
-- FR29: Hiển thị thời gian dự kiến tài xế đến.
-- FR30: Cập nhật trạng thái tài xế đã đến điểm đón.
-- FR31: Cập nhật trạng thái đã đón khách.
-- FR32: Cập nhật trạng thái đang di chuyển.
-- FR33: Cập nhật trạng thái hoàn thành chuyến.
-- FR34: Cho phép khách hàng theo dõi trạng thái chuyến đi.
-## Tính cước và thanh toán
-- FR35: Tính cước chuyến đi sau khi hoàn thành.
-- FR36: Hiển thị số tiền khách hàng phải trả.
-- FR37: Thanh toán bằng tiền mặt.
-- FR38: Thanh toán điện tử.
-- FR39: Gửi yêu cầu thanh toán đến nhà cung cấp thanh toán.
-- FR40: Nhận kết quả giao dịch thanh toán.
-- FR41: Thông báo khi thanh toán thành công.
-- FR42: Thông báo khi thanh toán thất bại.
-- FR43: Cho phép xử lý lại thanh toán thất bại theo chính sách.
-## Quản lý thông báo
-- FR44: Thông báo khi yêu cầu đặt xe được tiếp nhận.
-- FR45: Thông báo khi có tài xế nhận chuyến.
-- FR46: Thông báo khi tài xế đến điểm đón.
-- FR47: Thông báo khi chuyến đi hoàn thành.
-- FR48: Thông báo kết quả thanh toán.
-- FR49: Thông báo chuyến mới cho tài xế.
-- FR50: Thông báo thay đổi liên quan đến chuyến đang thực hiện.
-## Đánh giá tài xế
-- FR51: Hiển thị chức năng đánh giá sau khi chuyến hoàn thành.
-- FR52: Cho phép khách hàng đánh giá tài xế.
-- FR53: Lưu kết quả đánh giá tài xế.
+- FR05: Tạo tài khoản tài xế.
+- FR06: Cập nhật hồ sơ tài xế.
+- FR07: Cập nhật thông tin phương tiện.
+- FR08: Cập nhật trạng thái sẵn sàng.
+- FR09: Cập nhật vị trí tài xế.
+## Đặt xe
+- FR10: Nhập điểm đón.
+- FR11: Nhập điểm đến.
+- FR12: Chọn loại xe.
+- FR13: Gửi yêu cầu đặt xe.
+## Tìm tài xế
+- FR14: Tìm tài xế đang sẵn sàng.
+- FR15: Xếp ưu tiên tài xế phù hợp.
+- FR16: Gửi yêu cầu chuyến cho tài xế.
+- FR17: Phản hồi yêu cầu chuyến.
+- FR18: Tìm tài xế thay thế.
+- FR19: Thông báo khi không tìm được tài xế.
+## Theo dõi và thực hiện chuyến
+- FR20: Hiển thị thông tin tài xế nhận chuyến.
+- FR21: Hiển thị thời gian dự kiến tài xế đến.
+- FR22: Cập nhật trạng thái chuyến.
+- FR23: Theo dõi trạng thái chuyến.
+## Thanh toán
+- FR24: Tính cước chuyến đi.
+- FR25: Hiển thị số tiền phải trả.
+- FR26: Chọn phương thức thanh toán.
+- FR27: Ghi nhận thanh toán tiền mặt.
+- FR28: Gửi yêu cầu thanh toán điện tử.
+- FR29: Ghi nhận kết quả thanh toán.
+- FR30: Xử lý lại thanh toán thất bại.
+## Thông báo
+- FR31: Gửi thông báo chuyến đi cho khách hàng.
+- FR32: Gửi thông báo chuyến đi cho tài xế.
+## Đánh giá
+- FR33: Gửi đánh giá tài xế.
 ## Quản lý vận hành
-- FR54: Quản lý thông tin khách hàng.
-- FR55: Quản lý thông tin tài xế.
-- FR56: Quản lý phương tiện.
-- FR57: Quản lý chuyến đi.
-- FR58: Xem các chuyến đang diễn ra.
-- FR59: Xem trạng thái tài xế.
-- FR60: Hỗ trợ xử lý chuyến bị lỗi.
-- FR61: Tra cứu lịch sử giao dịch.
-- FR62: Phân quyền chức năng quản trị.
-- FR63: Lưu vết các thao tác quan trọng.
+- FR34: Quản lý dữ liệu vận hành.
+- FR35: Giám sát chuyến đang thực hiện.
+- FR36: Xử lý chuyến gặp sự cố.
+- FR37: Tra cứu lịch sử giao dịch.
+- FR38: Kiểm soát quyền quản trị.
+- FR39: Lưu vết thao tác quan trọng.
 ## Báo cáo
-- FR64: Thống kê số lượng chuyến đi.
-- FR65: Thống kê doanh thu.
-- FR66: Thống kê tỷ lệ chuyến hoàn thành.
-- FR67: Thống kê tỷ lệ chuyến bị hủy.
-- FR68: Báo cáo hiệu quả hoạt động của tài xế.
+- FR40: Xem báo cáo hoạt động.
 # Bước 8: Business rule và exception(quy tắc nghiệp vụ và ngoại lệ)
 ## 1. Business Rules – Quy tắc nghiệp vụ
 | Mã | Quy tắc nghiệp vụ | Diễn giải |
