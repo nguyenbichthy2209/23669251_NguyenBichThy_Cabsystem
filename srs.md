@@ -141,46 +141,36 @@ F04: Tính khoảng cách từ điểm đi đến điểm đón
 - FR06: Cập nhật hồ sơ tài xế.
 - FR07: Cập nhật thông tin phương tiện.
 - FR08: Cập nhật trạng thái sẵn sàng.
-- FR09: Cập nhật vị trí tài xế.
 ## Đặt xe
-- FR10: Nhập điểm đón.
-- FR11: Nhập điểm đến.
-- FR12: Chọn loại xe.
-- FR13: Gửi yêu cầu đặt xe.
+- FR09: Nhập điểm đón.
+- FR10: Nhập điểm đến.
+- FR11: Chọn loại xe.
+- FR12: Gửi yêu cầu đặt xe.
 ## Tìm tài xế
-- FR14: Tìm tài xế đang sẵn sàng.
-- FR15: Xếp ưu tiên tài xế phù hợp.
-- FR16: Gửi yêu cầu chuyến cho tài xế.
-- FR17: Phản hồi yêu cầu chuyến.
-- FR18: Tìm tài xế thay thế.
-- FR19: Thông báo khi không tìm được tài xế.
+- FR13: Tìm tài xế đang sẵn sàng.
+- FR14: Gửi yêu cầu chuyến cho tài xế.
+- FR15: Phản hồi yêu cầu chuyến.
+- FR16: Tìm tài xế thay thế.
+- FR17: Thông báo khi không tìm được tài xế.
 ## Theo dõi và thực hiện chuyến
-- FR20: Hiển thị thông tin tài xế nhận chuyến.
-- FR21: Hiển thị thời gian dự kiến tài xế đến.
-- FR22: Cập nhật trạng thái chuyến.
-- FR23: Theo dõi trạng thái chuyến.
+- FR18: Hiển thị thông tin tài xế nhận chuyến.
+- FR19: Cập nhật trạng thái chuyến.
+- FR20: Theo dõi trạng thái chuyến.
 ## Thanh toán
-- FR24: Tính cước chuyến đi.
-- FR25: Hiển thị số tiền phải trả.
-- FR26: Chọn phương thức thanh toán.
-- FR27: Ghi nhận thanh toán tiền mặt.
-- FR28: Gửi yêu cầu thanh toán điện tử.
-- FR29: Ghi nhận kết quả thanh toán.
-- FR30: Xử lý lại thanh toán thất bại.
+- FR21: Tính cước chuyến đi.
+- FR22: Hiển thị số tiền phải trả.
+- FR23: Chọn phương thức thanh toán.
+- FR24: Ghi nhận thanh toán tiền mặt.
+- FR25: Gửi yêu cầu thanh toán điện tử.
+- FR26: Ghi nhận kết quả thanh toán.
 ## Thông báo
-- FR31: Gửi thông báo chuyến đi cho khách hàng.
-- FR32: Gửi thông báo chuyến đi cho tài xế.
+- FR27: Gửi thông báo chuyến đi cho khách hàng.
+- FR28: Gửi thông báo chuyến đi cho tài xế.
 ## Đánh giá
-- FR33: Gửi đánh giá tài xế.
+- FR29: Gửi đánh giá tài xế.
 ## Quản lý vận hành
-- FR34: Quản lý dữ liệu vận hành.
-- FR35: Giám sát chuyến đang thực hiện.
-- FR36: Xử lý chuyến gặp sự cố.
-- FR37: Tra cứu lịch sử giao dịch.
-- FR38: Kiểm soát quyền quản trị.
-- FR39: Lưu vết thao tác quan trọng.
-## Báo cáo
-- FR40: Xem báo cáo hoạt động.
+- FR30: Quản lý dữ liệu vận hành.
+- FR31: Kiểm soát quyền quản trị.
 # Bước 8: Business rule và exception(quy tắc nghiệp vụ và ngoại lệ)
 ## 1. Business Rules – Quy tắc nghiệp vụ
 | Mã | Quy tắc nghiệp vụ | Diễn giải |
