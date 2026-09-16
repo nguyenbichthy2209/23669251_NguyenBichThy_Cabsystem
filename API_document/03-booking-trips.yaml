@@ -1,0 +1,254 @@
+openapi: 3.0.0
+info:
+  title: CAB System - Booking & Trip API
+  description: 'Covers FR10-FR13 and FR20-FR23: create booking requests, view assigned driver/ETA, update and track trip status.'
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/api/v1
+  description: Local development server
+paths:
+  /trips:
+    post:
+      tags:
+      - Bookings
+      summary: Create a ride request
+      operationId: createTrip
+      security:
+      - bearerAuth: []
+      requestBody:
+        description: Pickup, destination, vehicle type and payment method
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+      responses:
+        '201':
+          description: Trip created and driver search started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trip'
+        '400':
+          description: Invalid booking information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /trips/{tripId}:
+    get:
+      tags:
+      - Trips
+      summary: Get current trip information
+      operationId: getTrip
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: tripId
+        in: path
+        required: true
+        description: tripId identifier
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Trip information including assigned driver and ETA
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trip'
+        '404':
+          description: Trip not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /trips/{tripId}/status:
+    patch:
+      tags:
+      - Trips
+      summary: Update trip status
+      operationId: updateTripStatus
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: tripId
+        in: path
+        required: true
+        description: tripId identifier
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TripStatusUpdateRequest'
+      responses:
+        '200':
+          description: Trip status updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trip'
+        '400':
+          description: Invalid status transition
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Only the assigned driver/operator can update this trip
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Trip not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      properties:
+        error_code:
+          type: string
+          example: VALIDATION_ERROR
+        message:
+          type: string
+          example: Request data is invalid
+        details:
+          type: array
+          items:
+            type: string
+      required:
+      - error_code
+      - message
+    Location:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+          example: 10.7769
+        longitude:
+          type: number
+          format: double
+          example: 106.7009
+        address:
+          type: string
+          example: Ho Chi Minh City
+      required:
+      - latitude
+      - longitude
+    BookingRequest:
+      type: object
+      required:
+      - pickup_location
+      - destination
+      - vehicle_type
+      - payment_method
+      properties:
+        pickup_location:
+          $ref: '#/components/schemas/Location'
+        destination:
+          $ref: '#/components/schemas/Location'
+        vehicle_type:
+          type: string
+          example: car
+        payment_method:
+          type: string
+          enum:
+          - cash
+          - electronic
+    DriverSummary:
+      type: object
+      properties:
+        driver_id:
+          type: integer
+          format: int64
+        full_name:
+          type: string
+        phone:
+          type: string
+        vehicle_name:
+          type: string
+        license_plate:
+          type: string
+    Trip:
+      type: object
+      properties:
+        trip_id:
+          type: integer
+          format: int64
+        customer_id:
+          type: integer
+          format: int64
+        driver_id:
+          type: integer
+          format: int64
+          nullable: true
+        pickup_location:
+          $ref: '#/components/schemas/Location'
+        destination:
+          $ref: '#/components/schemas/Location'
+        vehicle_type:
+          type: string
+        status:
+          type: string
+          enum:
+          - searching_driver
+          - driver_assigned
+          - driver_arrived
+          - passenger_picked_up
+          - in_progress
+          - completed
+          - failed
+        estimated_arrival_minutes:
+          type: integer
+          nullable: true
+        driver:
+          $ref: '#/components/schemas/DriverSummary'
+        start_time:
+          type: string
+          format: date-time
+          nullable: true
+        end_time:
+          type: string
+          format: date-time
+          nullable: true
+    TripStatusUpdateRequest:
+      type: object
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          enum:
+          - driver_arrived
+          - passenger_picked_up
+          - in_progress
+          - completed
+          - failed
+tags:
+- name: Bookings
+  description: Customer ride booking
+- name: Trips
+  description: Trip execution and tracking

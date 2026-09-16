@@ -1,0 +1,336 @@
+openapi: 3.0.0
+info:
+  title: CAB System - Payment API
+  description: 'Covers FR24-FR30: calculate fare, display amount, choose payment method, cash payment, electronic payment,
+    record result and retry failed electronic payment.'
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/api/v1
+  description: Local development server
+paths:
+  /trips/{tripId}/fare:
+    get:
+      tags:
+      - Payments
+      summary: Get calculated fare after trip completion
+      operationId: getTripFare
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: tripId
+        in: path
+        required: true
+        description: tripId identifier
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Fare calculated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fare'
+        '409':
+          description: Trip is not completed yet
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Trip not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /trips/{tripId}/payments:
+    post:
+      tags:
+      - Payments
+      summary: Create payment and choose payment method
+      operationId: createPayment
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: tripId
+        in: path
+        required: true
+        description: tripId identifier
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentCreateRequest'
+      responses:
+        '201':
+          description: Payment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '400':
+          description: Invalid payment method
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Fare is unavailable or payment already completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /payments/{paymentId}/cash:
+    post:
+      tags:
+      - Payments
+      summary: Record cash payment
+      operationId: recordCashPayment
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: paymentId
+        in: path
+        required: true
+        description: paymentId identifier
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Cash payment recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '409':
+          description: Payment cannot be marked as cash
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /payments/{paymentId}/electronic:
+    post:
+      tags:
+      - Payments
+      summary: Send electronic payment request
+      operationId: startElectronicPayment
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: paymentId
+        in: path
+        required: true
+        description: paymentId identifier
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ElectronicPaymentRequest'
+      responses:
+        '200':
+          description: Electronic payment request created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ElectronicPaymentResponse'
+        '400':
+          description: Invalid provider request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /payments/{paymentId}/callback:
+    post:
+      tags:
+      - Payments
+      summary: Record result from payment provider
+      operationId: recordElectronicPaymentResult
+      parameters:
+      - name: paymentId
+        in: path
+        required: true
+        description: paymentId identifier
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentCallbackRequest'
+      responses:
+        '200':
+          description: Payment result recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '400':
+          description: Invalid callback
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /payments/{paymentId}/retry:
+    post:
+      tags:
+      - Payments
+      summary: Retry a failed electronic payment
+      operationId: retryElectronicPayment
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: paymentId
+        in: path
+        required: true
+        description: paymentId identifier
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: New payment attempt created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ElectronicPaymentResponse'
+        '409':
+          description: Only failed electronic payments can be retried
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      properties:
+        error_code:
+          type: string
+          example: VALIDATION_ERROR
+        message:
+          type: string
+          example: Request data is invalid
+        details:
+          type: array
+          items:
+            type: string
+      required:
+      - error_code
+      - message
+    Fare:
+      type: object
+      properties:
+        trip_id:
+          type: integer
+          format: int64
+        amount:
+          type: number
+          format: double
+          example: 85000
+        currency:
+          type: string
+          example: VND
+    PaymentCreateRequest:
+      type: object
+      required:
+      - payment_method
+      properties:
+        payment_method:
+          type: string
+          enum:
+          - cash
+          - electronic
+    Payment:
+      type: object
+      properties:
+        payment_id:
+          type: integer
+          format: int64
+        trip_id:
+          type: integer
+          format: int64
+        amount:
+          type: number
+          format: double
+        payment_method:
+          type: string
+          enum:
+          - cash
+          - electronic
+        payment_status:
+          type: string
+          enum:
+          - pending
+          - paid
+          - failed
+        payment_time:
+          type: string
+          format: date-time
+          nullable: true
+    ElectronicPaymentRequest:
+      type: object
+      required:
+      - provider
+      - return_url
+      properties:
+        provider:
+          type: string
+          example: mock-payment-provider
+        return_url:
+          type: string
+          format: uri
+      description: Only provider/token references are sent. CAB System does not store sensitive card/account data.
+    ElectronicPaymentResponse:
+      type: object
+      properties:
+        payment_id:
+          type: integer
+          format: int64
+        payment_url:
+          type: string
+          format: uri
+        payment_status:
+          type: string
+          enum:
+          - pending
+          - paid
+          - failed
+    PaymentCallbackRequest:
+      type: object
+      required:
+      - provider_transaction_id
+      - status
+      properties:
+        provider_transaction_id:
+          type: string
+        status:
+          type: string
+          enum:
+          - paid
+          - failed
+        paid_at:
+          type: string
+          format: date-time
+          nullable: true
+tags:
+- name: Payments
+  description: Trip fare and payment operations

@@ -1,0 +1,226 @@
+openapi: 3.0.0
+info:
+  title: CAB System - Driver Dispatch API
+  description: 'Covers FR14-FR19: find available drivers, prioritize candidates, send trip requests, receive driver response,
+    retry with another driver and notify when no driver is found.'
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/api/v1
+  description: Local development server
+paths:
+  /dispatch/trips/{tripId}/candidates:
+    get:
+      tags:
+      - Dispatch
+      summary: Find and rank available drivers for a trip
+      operationId: findDriverCandidates
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: tripId
+        in: path
+        required: true
+        description: tripId identifier
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Ranked available drivers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DriverCandidate'
+        '404':
+          description: Trip not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /dispatch/trips/{tripId}/offers:
+    post:
+      tags:
+      - Dispatch
+      summary: Send trip request to the next suitable driver
+      operationId: sendTripOffer
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: tripId
+        in: path
+        required: true
+        description: tripId identifier
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '201':
+          description: Trip offer sent to driver
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TripOffer'
+        '404':
+          description: No suitable driver found or trip not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /dispatch/offers/{offerId}/response:
+    post:
+      tags:
+      - Dispatch
+      summary: Driver accepts or rejects a trip request
+      operationId: respondToTripOffer
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: offerId
+        in: path
+        required: true
+        description: offerId identifier
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DriverResponseRequest'
+      responses:
+        '200':
+          description: Response recorded; system assigns driver or continues searching
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DispatchResult'
+        '400':
+          description: Offer is no longer valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Offer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /dispatch/trips/{tripId}/retry:
+    post:
+      tags:
+      - Dispatch
+      summary: Continue searching for a replacement driver
+      operationId: retryDriverSearch
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: tripId
+        in: path
+        required: true
+        description: tripId identifier
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Driver search result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DispatchResult'
+        '404':
+          description: Trip not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      properties:
+        error_code:
+          type: string
+          example: VALIDATION_ERROR
+        message:
+          type: string
+          example: Request data is invalid
+        details:
+          type: array
+          items:
+            type: string
+      required:
+      - error_code
+      - message
+    DriverCandidate:
+      type: object
+      properties:
+        driver_id:
+          type: integer
+          format: int64
+        distance_km:
+          type: number
+          format: double
+        status:
+          type: string
+          example: available
+        priority_rank:
+          type: integer
+    TripOffer:
+      type: object
+      properties:
+        offer_id:
+          type: integer
+          format: int64
+        trip_id:
+          type: integer
+          format: int64
+        driver_id:
+          type: integer
+          format: int64
+        status:
+          type: string
+          enum:
+          - pending
+          - accepted
+          - rejected
+          - expired
+    DriverResponseRequest:
+      type: object
+      required:
+      - response
+      properties:
+        response:
+          type: string
+          enum:
+          - accept
+          - reject
+    DispatchResult:
+      type: object
+      properties:
+        trip_id:
+          type: integer
+          format: int64
+        assigned_driver_id:
+          type: integer
+          format: int64
+          nullable: true
+        status:
+          type: string
+          enum:
+          - assigned
+          - searching
+          - no_driver_found
+tags:
+- name: Dispatch
+  description: Driver matching and assignment

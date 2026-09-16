@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: CAB System - Rating API
+  description: 'Covers FR33: allow a customer to rate the assigned driver only after the trip is completed.'
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/api/v1
+  description: Local development server
+paths:
+  /trips/{tripId}/rating:
+    post:
+      tags:
+      - Ratings
+      summary: Rate driver after a completed trip
+      operationId: createTripRating
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: tripId
+        in: path
+        required: true
+        description: tripId identifier
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RatingCreateRequest'
+      responses:
+        '201':
+          description: Rating submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rating'
+        '400':
+          description: Invalid rating
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Customer is not allowed to rate this trip
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Trip is not completed or already rated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      tags:
+      - Ratings
+      summary: Get rating for a trip
+      operationId: getTripRating
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: tripId
+        in: path
+        required: true
+        description: tripId identifier
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Trip rating
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rating'
+        '404':
+          description: Rating not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      properties:
+        error_code:
+          type: string
+          example: VALIDATION_ERROR
+        message:
+          type: string
+          example: Request data is invalid
+        details:
+          type: array
+          items:
+            type: string
+      required:
+      - error_code
+      - message
+    RatingCreateRequest:
+      type: object
+      required:
+      - score
+      properties:
+        score:
+          type: integer
+          minimum: 1
+          maximum: 5
+          example: 5
+        comment:
+          type: string
+          maxLength: 1000
+          example: Driver was polite and on time.
+    Rating:
+      type: object
+      properties:
+        rating_id:
+          type: integer
+          format: int64
+        trip_id:
+          type: integer
+          format: int64
+        customer_id:
+          type: integer
+          format: int64
+        driver_id:
+          type: integer
+          format: int64
+        score:
+          type: integer
+          minimum: 1
+          maximum: 5
+        comment:
+          type: string
+tags:
+- name: Ratings
+  description: Driver ratings after completed trips

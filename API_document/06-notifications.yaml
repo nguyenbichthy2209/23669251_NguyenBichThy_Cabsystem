@@ -1,0 +1,154 @@
+openapi: 3.0.0
+info:
+  title: CAB System - Notification API
+  description: 'Covers FR31-FR32: send and retrieve trip-related notifications for customers and drivers.'
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/api/v1
+  description: Local development server
+paths:
+  /notifications:
+    get:
+      tags:
+      - Notifications
+      summary: Get current user's notifications
+      operationId: getNotifications
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: status
+        in: query
+        required: false
+        description: status
+        schema:
+          type: string
+          enum:
+          - unread
+          - read
+      responses:
+        '200':
+          description: Notifications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification'
+    post:
+      tags:
+      - Notifications
+      summary: Send a trip-related notification
+      operationId: sendNotification
+      security:
+      - bearerAuth: []
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationCreateRequest'
+      responses:
+        '201':
+          description: Notification created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+        '400':
+          description: Invalid notification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /notifications/{notificationId}/read:
+    patch:
+      tags:
+      - Notifications
+      summary: Mark notification as read
+      operationId: markNotificationRead
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: notificationId
+        in: path
+        required: true
+        description: notificationId identifier
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Notification marked as read
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+        '404':
+          description: Notification not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      properties:
+        error_code:
+          type: string
+          example: VALIDATION_ERROR
+        message:
+          type: string
+          example: Request data is invalid
+        details:
+          type: array
+          items:
+            type: string
+      required:
+      - error_code
+      - message
+    Notification:
+      type: object
+      properties:
+        notification_id:
+          type: integer
+          format: int64
+        user_id:
+          type: integer
+          format: int64
+        content:
+          type: string
+        notification_type:
+          type: string
+          example: trip_status
+        status:
+          type: string
+          enum:
+          - unread
+          - read
+        created_at:
+          type: string
+          format: date-time
+    NotificationCreateRequest:
+      type: object
+      required:
+      - user_id
+      - content
+      - notification_type
+      properties:
+        user_id:
+          type: integer
+          format: int64
+        content:
+          type: string
+        notification_type:
+          type: string
+tags:
+- name: Notifications
+  description: Trip-related notifications

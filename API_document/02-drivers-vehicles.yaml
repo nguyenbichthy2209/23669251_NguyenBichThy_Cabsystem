@@ -1,0 +1,389 @@
+openapi: 3.0.0
+info:
+  title: CAB System - Driver & Vehicle API
+  description: 'Covers FR05-FR09: create/update driver, vehicle information, availability and current location.'
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/api/v1
+  description: Local development server
+paths:
+  /drivers:
+    post:
+      tags:
+      - Drivers
+      summary: Create driver account
+      operationId: createDriver
+      security:
+      - bearerAuth: []
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DriverCreateRequest'
+      responses:
+        '201':
+          description: Driver created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Driver'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Email or phone already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /drivers/{driverId}:
+    get:
+      tags:
+      - Drivers
+      summary: Get driver profile
+      operationId: getDriver
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: driverId
+        in: path
+        required: true
+        description: driverId identifier
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Driver profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Driver'
+        '404':
+          description: Driver not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+      - Drivers
+      summary: Update driver profile
+      operationId: updateDriver
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: driverId
+        in: path
+        required: true
+        description: driverId identifier
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DriverUpdateRequest'
+      responses:
+        '200':
+          description: Driver updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Driver'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Driver not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /drivers/{driverId}/vehicle:
+    get:
+      tags:
+      - Vehicles
+      summary: Get driver's vehicle
+      operationId: getDriverVehicle
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: driverId
+        in: path
+        required: true
+        description: driverId identifier
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Vehicle information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+        '404':
+          description: Vehicle not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+      - Vehicles
+      summary: Create or update driver's vehicle
+      operationId: upsertDriverVehicle
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: driverId
+        in: path
+        required: true
+        description: driverId identifier
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleUpsertRequest'
+      responses:
+        '200':
+          description: Vehicle saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /drivers/{driverId}/status:
+    patch:
+      tags:
+      - Drivers
+      summary: Update driver availability status
+      operationId: updateDriverStatus
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: driverId
+        in: path
+        required: true
+        description: driverId identifier
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DriverStatusRequest'
+      responses:
+        '200':
+          description: Driver status updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Driver'
+        '400':
+          description: Invalid status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /drivers/{driverId}/location:
+    patch:
+      tags:
+      - Drivers
+      summary: Update driver's current location
+      operationId: updateDriverLocation
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: driverId
+        in: path
+        required: true
+        description: driverId identifier
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+      responses:
+        '200':
+          description: Location updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Driver'
+        '400':
+          description: Invalid location
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      properties:
+        error_code:
+          type: string
+          example: VALIDATION_ERROR
+        message:
+          type: string
+          example: Request data is invalid
+        details:
+          type: array
+          items:
+            type: string
+      required:
+      - error_code
+      - message
+    Location:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+          example: 10.7769
+        longitude:
+          type: number
+          format: double
+          example: 106.7009
+        address:
+          type: string
+          example: Ho Chi Minh City
+      required:
+      - latitude
+      - longitude
+    DriverCreateRequest:
+      type: object
+      required:
+      - full_name
+      - email
+      - phone
+      - password
+      properties:
+        full_name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        password:
+          type: string
+          format: password
+          minLength: 6
+    Driver:
+      type: object
+      properties:
+        driver_id:
+          type: integer
+          format: int64
+        full_name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        status:
+          type: string
+          enum:
+          - available
+          - busy
+          - offline
+        current_location:
+          $ref: '#/components/schemas/Location'
+    DriverUpdateRequest:
+      type: object
+      properties:
+        full_name:
+          type: string
+        phone:
+          type: string
+    DriverStatusRequest:
+      type: object
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          enum:
+          - available
+          - busy
+          - offline
+    Vehicle:
+      type: object
+      properties:
+        vehicle_id:
+          type: integer
+          format: int64
+        driver_id:
+          type: integer
+          format: int64
+        vehicle_type:
+          type: string
+          example: car
+        license_plate:
+          type: string
+          example: 51A-123.45
+        vehicle_name:
+          type: string
+          example: Toyota Vios
+    VehicleUpsertRequest:
+      type: object
+      required:
+      - vehicle_type
+      - license_plate
+      - vehicle_name
+      properties:
+        vehicle_type:
+          type: string
+        license_plate:
+          type: string
+        vehicle_name:
+          type: string
+tags:
+- name: Drivers
+  description: Driver account and operational status
+- name: Vehicles
+  description: Vehicle information

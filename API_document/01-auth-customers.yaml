@@ -1,0 +1,338 @@
+openapi: 3.0.0
+info:
+  title: CAB System - Authentication & Customer API
+  description: 'Covers FR01-FR04: customer registration, login, profile update and trip history.'
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/api/v1
+  description: Local development server
+paths:
+  /auth/customers/register:
+    post:
+      tags:
+      - Authentication
+      summary: Register a customer account
+      operationId: registerCustomer
+      requestBody:
+        description: Customer registration information
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRegisterRequest'
+      responses:
+        '201':
+          description: Customer account created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Email or phone already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /auth/login:
+    post:
+      tags:
+      - Authentication
+      summary: Login to CAB System
+      operationId: login
+      requestBody:
+        description: Login credentials
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customers/{customerId}:
+    get:
+      tags:
+      - Customers
+      summary: Get customer profile
+      operationId: getCustomer
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: customerId
+        in: path
+        required: true
+        description: customerId identifier
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Customer profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Customer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+      - Customers
+      summary: Update customer profile
+      operationId: updateCustomer
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: customerId
+        in: path
+        required: true
+        description: customerId identifier
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Updated customer profile
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerUpdateRequest'
+      responses:
+        '200':
+          description: Customer updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Customer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customers/{customerId}/trips:
+    get:
+      tags:
+      - Customers
+      summary: Get customer trip history
+      operationId: getCustomerTripHistory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: customerId
+        in: path
+        required: true
+        description: customerId identifier
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Trip history
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TripHistoryItem'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Customer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      properties:
+        error_code:
+          type: string
+          example: VALIDATION_ERROR
+        message:
+          type: string
+          example: Request data is invalid
+        details:
+          type: array
+          items:
+            type: string
+      required:
+      - error_code
+      - message
+    Location:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+          example: 10.7769
+        longitude:
+          type: number
+          format: double
+          example: 106.7009
+        address:
+          type: string
+          example: Ho Chi Minh City
+      required:
+      - latitude
+      - longitude
+    CustomerRegisterRequest:
+      type: object
+      required:
+      - full_name
+      - email
+      - phone
+      - password
+      properties:
+        full_name:
+          type: string
+          example: Nguyen Van A
+        email:
+          type: string
+          format: email
+          example: a@example.com
+        phone:
+          type: string
+          example: 0901234567
+        password:
+          type: string
+          format: password
+          minLength: 6
+          example: secret123
+        address:
+          type: string
+          example: Ho Chi Minh City
+    LoginRequest:
+      type: object
+      required:
+      - email
+      - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+          example: Bearer
+        expires_in:
+          type: integer
+          example: 3600
+        user_role:
+          type: string
+          enum:
+          - customer
+          - driver
+          - operator
+          - management
+      required:
+      - access_token
+      - token_type
+    Customer:
+      type: object
+      properties:
+        customer_id:
+          type: integer
+          format: int64
+          example: 1
+        full_name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        address:
+          type: string
+    CustomerUpdateRequest:
+      type: object
+      properties:
+        full_name:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+    TripHistoryItem:
+      type: object
+      properties:
+        trip_id:
+          type: integer
+          format: int64
+        pickup_location:
+          $ref: '#/components/schemas/Location'
+        destination:
+          $ref: '#/components/schemas/Location'
+        vehicle_type:
+          type: string
+        status:
+          type: string
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        amount:
+          type: number
+          format: double
+tags:
+- name: Authentication
+  description: Authentication operations
+- name: Customers
+  description: Customer account and profile operations

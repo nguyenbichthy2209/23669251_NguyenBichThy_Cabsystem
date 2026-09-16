@@ -1,0 +1,148 @@
+openapi: 3.0.0
+info:
+  title: CAB System - Reporting API
+  description: 'Covers FR40: reports for trip volume, revenue, completion rate, cancellation rate and driver performance.'
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/api/v1
+  description: Local development server
+paths:
+  /reports/activity:
+    get:
+      tags:
+      - Reports
+      summary: Get system activity report
+      operationId: getActivityReport
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Activity report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityReport'
+        '403':
+          description: Insufficient permission
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /reports/drivers:
+    get:
+      tags:
+      - Reports
+      summary: Get driver performance report
+      operationId: getDriverPerformanceReport
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Driver performance report
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DriverPerformance'
+        '403':
+          description: Insufficient permission
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      properties:
+        error_code:
+          type: string
+          example: VALIDATION_ERROR
+        message:
+          type: string
+          example: Request data is invalid
+        details:
+          type: array
+          items:
+            type: string
+      required:
+      - error_code
+      - message
+    ActivityReport:
+      type: object
+      properties:
+        from:
+          type: string
+          format: date
+        to:
+          type: string
+          format: date
+        total_trips:
+          type: integer
+        completed_trips:
+          type: integer
+        cancelled_trips:
+          type: integer
+        completion_rate:
+          type: number
+          format: double
+          example: 0.93
+        cancellation_rate:
+          type: number
+          format: double
+          example: 0.04
+        total_revenue:
+          type: number
+          format: double
+        currency:
+          type: string
+          example: VND
+    DriverPerformance:
+      type: object
+      properties:
+        driver_id:
+          type: integer
+          format: int64
+        completed_trips:
+          type: integer
+        acceptance_rate:
+          type: number
+          format: double
+        average_rating:
+          type: number
+          format: double
+tags:
+- name: Reports
+  description: Management reports

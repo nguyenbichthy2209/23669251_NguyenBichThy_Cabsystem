@@ -1,0 +1,304 @@
+openapi: 3.0.0
+info:
+  title: CAB System - Operations API
+  description: 'Covers FR34-FR39: operational data management, active-trip monitoring, incident handling, transaction history,
+    authorization and audit logs.'
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/api/v1
+  description: Local development server
+paths:
+  /operations/trips:
+    get:
+      tags:
+      - Operations
+      summary: Monitor trips
+      operationId: getOperationalTrips
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: status
+        in: query
+        required: false
+        description: Filter trips by current status
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Operational trip list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OperationalTrip'
+        '403':
+          description: Insufficient permission
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /operations/trips/{tripId}/incidents:
+    post:
+      tags:
+      - Operations
+      summary: Record and handle a trip incident
+      operationId: createTripIncident
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: tripId
+        in: path
+        required: true
+        description: tripId identifier
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IncidentRequest'
+      responses:
+        '201':
+          description: Incident recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Incident'
+        '403':
+          description: Insufficient permission
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Trip not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      tags:
+      - Operations
+      summary: Get incidents for a trip
+      operationId: getTripIncidents
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: tripId
+        in: path
+        required: true
+        description: tripId identifier
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Incident list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Incident'
+        '403':
+          description: Insufficient permission
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /operations/transactions:
+    get:
+      tags:
+      - Transactions
+      summary: Search transaction history
+      operationId: searchTransactions
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: payment_id
+        in: query
+        required: false
+        description: Filter by payment ID
+        schema:
+          type: integer
+      - name: status
+        in: query
+        required: false
+        description: Filter by transaction status
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Transaction history
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+        '403':
+          description: Insufficient permission
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /operations/audit-logs:
+    get:
+      tags:
+      - Audit
+      summary: View important operation audit logs
+      operationId: getAuditLogs
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: operator_id
+        in: query
+        required: false
+        description: Filter by operator ID
+        schema:
+          type: integer
+      - name: action
+        in: query
+        required: false
+        description: Filter by action
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Audit logs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuditLog'
+        '403':
+          description: Insufficient permission
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      properties:
+        error_code:
+          type: string
+          example: VALIDATION_ERROR
+        message:
+          type: string
+          example: Request data is invalid
+        details:
+          type: array
+          items:
+            type: string
+      required:
+      - error_code
+      - message
+    OperationalTrip:
+      type: object
+      properties:
+        trip_id:
+          type: integer
+          format: int64
+        customer_id:
+          type: integer
+          format: int64
+        driver_id:
+          type: integer
+          format: int64
+          nullable: true
+        status:
+          type: string
+        pickup_address:
+          type: string
+        destination_address:
+          type: string
+    IncidentRequest:
+      type: object
+      required:
+      - issue_type
+      - description
+      properties:
+        issue_type:
+          type: string
+          example: trip_error
+        description:
+          type: string
+        action_taken:
+          type: string
+    Incident:
+      type: object
+      properties:
+        incident_id:
+          type: integer
+          format: int64
+        trip_id:
+          type: integer
+          format: int64
+        issue_type:
+          type: string
+        description:
+          type: string
+        action_taken:
+          type: string
+        status:
+          type: string
+          enum:
+          - open
+          - resolved
+        created_at:
+          type: string
+          format: date-time
+    Transaction:
+      type: object
+      properties:
+        transaction_id:
+          type: integer
+          format: int64
+        payment_id:
+          type: integer
+          format: int64
+        amount:
+          type: number
+          format: double
+        status:
+          type: string
+        transaction_time:
+          type: string
+          format: date-time
+    AuditLog:
+      type: object
+      properties:
+        audit_id:
+          type: integer
+          format: int64
+        operator_id:
+          type: integer
+          format: int64
+        action:
+          type: string
+        resource_type:
+          type: string
+        resource_id:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+tags:
+- name: Operations
+  description: Operations monitoring and incident handling
+- name: Transactions
+  description: Payment transaction history
+- name: Audit
+  description: Audit log access
