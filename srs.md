@@ -252,129 +252,388 @@ F04: Tính khoảng cách từ điểm đi đến điểm đón
 | NFR09 | Khả năng bảo trì | Mã nguồn phải được tổ chức rõ ràng để dễ sửa đổi và bổ sung. |
 # Bước 11: Vẽ use case
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/84806b90-0d8d-4977-a9bb-c81b46e08680" />
+| Mã UC | Tên Use Case | Actor chính | Actor phụ | Functional Requirement |
+|---|---|---|---|---|
+| UC01 | Đăng ký tài khoản khách hàng | Khách hàng | Không | FR01 |
+| UC02 | Đăng nhập hệ thống | Khách hàng, Tài xế, Nhân viên vận hành | Không | FR02 |
+| UC03 | Cập nhật thông tin cá nhân | Khách hàng | Không | FR03 |
+| UC04 | Xem lịch sử chuyến đi | Khách hàng | Không | FR04 |
+| UC05 | Quản lý hồ sơ tài xế | Tài xế | Không | FR05 |
+| UC06 | Quản lý thông tin phương tiện | Tài xế | Không | FR06 |
+| UC07 | Cập nhật trạng thái và khu vực hoạt động | Tài xế | Không | FR07–FR08 |
+| UC08 | Đặt xe | Khách hàng | Không | FR09–FR12 |
+| UC09 | Tìm và phân công tài xế | Khách hàng | Tài xế | FR13–FR18, FR30 |
+| UC10 | Theo dõi chuyến đi | Khách hàng | Không | FR19, FR21 |
+| UC11 | Cập nhật và hoàn thành chuyến đi | Tài xế | Khách hàng | FR20, FR22, FR31 |
+| UC12 | Thanh toán tiền mặt | Khách hàng | Không | FR23–FR26, FR29 |
+| UC13 | Thanh toán điện tử | Khách hàng | Nhà cung cấp thanh toán | FR23–FR25, FR27–FR29 |
+| UC14 | Đánh giá tài xế | Khách hàng | Không | FR32 |
+| UC15 | Quản lý khách hàng | Nhân viên vận hành | Không | FR33 |
+| UC16 | Quản lý tài xế | Nhân viên vận hành | Không | FR34 |
+| UC17 | Quản lý phương tiện | Nhân viên vận hành | Không | FR35 |
+| UC18 | Quản lý chuyến đi | Nhân viên vận hành | Không | FR36 |
+| UC19 | Quản lý quyền truy cập | Nhân viên vận hành | Không | FR37 |
+| UC20 | Xem báo cáo cơ bản | Ban lãnh đạo / Người có quyền | Không | FR38–FR40 |
+
 # Bước 12: Đặc tả Use Case
 
-## UC01 – Quản lý tài khoản khách hàng
+## UC01 – Đăng ký tài khoản khách hàng
 
 | Thuộc tính | Nội dung |
 |---|---|
 | **Mã Use Case** | UC01 |
-| **Tên Use Case** | Quản lý tài khoản khách hàng |
-| **Actor** | Khách hàng |
-| **Mô tả** | Cho phép khách hàng đăng ký, đăng nhập, cập nhật thông tin cá nhân và xem lịch sử chuyến. |
-| **Tiền điều kiện** | Khách hàng có kết nối với hệ thống. |
-| **Hậu điều kiện** | Thông tin tài khoản hoặc lịch sử chuyến được hiển thị/cập nhật theo thao tác. |
-| **Luồng chính** | 1. Khách hàng chọn chức năng tài khoản.<br>2. Hệ thống hiển thị chức năng phù hợp.<br>3. Khách hàng thực hiện đăng ký, đăng nhập, cập nhật thông tin hoặc xem lịch sử chuyến.<br>4. Hệ thống kiểm tra dữ liệu.<br>5. Hệ thống lưu hoặc hiển thị kết quả. |
-| **Ngoại lệ** | Thông tin không hợp lệ hoặc thông tin đăng nhập sai → Hệ thống thông báo cho khách hàng. |
+| **Tên Use Case** | Đăng ký tài khoản khách hàng |
+| **FR liên quan** | FR01 |
+| **Actor chính** | Khách hàng |
+| **Actor phụ** | Không |
+| **Mô tả** | Cho phép khách hàng tạo tài khoản để sử dụng CAB System. |
+| **Tiền điều kiện** | Khách hàng chưa có tài khoản trong hệ thống. |
+| **Hậu điều kiện** | Tài khoản khách hàng được tạo và lưu trong hệ thống. |
+| **Luồng chính** | 1. Khách hàng chọn chức năng **Đăng ký**.<br>2. Hệ thống hiển thị biểu mẫu đăng ký.<br>3. Khách hàng nhập họ tên, email, số điện thoại, mật khẩu và các thông tin cần thiết.<br>4. Khách hàng chọn **Đăng ký**.<br>5. Hệ thống kiểm tra tính hợp lệ của thông tin.<br>6. Hệ thống tạo tài khoản khách hàng.<br>7. Hệ thống thông báo đăng ký thành công. |
+| **Luồng thay thế** | Không |
+| **Ngoại lệ** | **5.1. Email hoặc số điện thoại đã tồn tại:** Hệ thống thông báo và yêu cầu khách hàng nhập thông tin khác.<br>**5.2. Thông tin không hợp lệ:** Hệ thống hiển thị lỗi và yêu cầu khách hàng sửa lại. |
 
 ---
 
-## UC02 – Đặt xe
+## UC02 – Đăng nhập hệ thống
 
 | Thuộc tính | Nội dung |
 |---|---|
 | **Mã Use Case** | UC02 |
-| **Tên Use Case** | Đặt xe |
-| **Actor** | Khách hàng |
-| **Mô tả** | Cho phép khách hàng tạo yêu cầu đặt xe. |
-| **Tiền điều kiện** | Khách hàng đã đăng nhập. |
-| **Hậu điều kiện** | Yêu cầu đặt xe được tạo với trạng thái Đang tìm tài xế. |
-| **Luồng chính** | 1. Khách hàng nhập điểm đón.<br>2. Nhập điểm đến.<br>3. Chọn loại xe.<br>4. Gửi yêu cầu đặt xe.<br>5. Hệ thống kiểm tra thông tin.<br>6. Hệ thống tạo yêu cầu chuyến. |
-| **Ngoại lệ** | Thông tin đặt xe không hợp lệ → Hệ thống yêu cầu nhập lại. |
+| **Tên Use Case** | Đăng nhập hệ thống |
+| **FR liên quan** | FR02 |
+| **Actor chính** | Khách hàng, Tài xế, Nhân viên vận hành, Ban lãnh đạo/Người có quyền |
+| **Actor phụ** | Không |
+| **Mô tả** | Cho phép người dùng đăng nhập để sử dụng các chức năng phù hợp với vai trò. |
+| **Tiền điều kiện** | Người dùng đã có tài khoản hợp lệ. |
+| **Hậu điều kiện** | Người dùng đăng nhập thành công và được truy cập các chức năng theo quyền. |
+| **Luồng chính** | 1. Người dùng chọn **Đăng nhập**.<br>2. Hệ thống hiển thị màn hình đăng nhập.<br>3. Người dùng nhập tài khoản và mật khẩu.<br>4. Người dùng chọn **Đăng nhập**.<br>5. Hệ thống kiểm tra thông tin đăng nhập.<br>6. Hệ thống xác định vai trò người dùng.<br>7. Hệ thống chuyển đến màn hình chức năng tương ứng. |
+| **Luồng thay thế** | Không |
+| **Ngoại lệ** | **5.1. Sai tài khoản hoặc mật khẩu:** Hệ thống thông báo đăng nhập không thành công và cho phép nhập lại.<br>**5.2. Tài khoản không hợp lệ hoặc bị khóa:** Hệ thống từ chối đăng nhập. |
 
 ---
 
-## UC03 – Tìm và phân công tài xế
+## UC03 – Cập nhật thông tin cá nhân
 
 | Thuộc tính | Nội dung |
 |---|---|
 | **Mã Use Case** | UC03 |
-| **Tên Use Case** | Tìm và phân công tài xế |
-| **Actor** | Khách hàng, Tài xế |
-| **Mô tả** | Tìm tài xế sẵn sàng, phù hợp loại phương tiện và khu vực cho yêu cầu đặt xe. |
-| **Tiền điều kiện** | Yêu cầu đặt xe đã được tạo. |
-| **Hậu điều kiện** | Tài xế được phân công hoặc khách hàng được thông báo không tìm được tài xế. |
-| **Luồng chính** | 1. Hệ thống tìm tài xế có trạng thái Sẵn sàng.<br>2. Hệ thống lọc theo loại phương tiện và khu vực.<br>3. Hệ thống gửi yêu cầu chuyến cho tài xế.<br>4. Tài xế chấp nhận chuyến.<br>5. Hệ thống phân công tài xế cho chuyến.<br>6. Hệ thống chuyển tài xế sang trạng thái Bận.<br>7. Hệ thống hiển thị thông tin tài xế và tạo thông báo cho khách hàng. |
-| **Luồng thay thế** | Tài xế từ chối → Hệ thống tiếp tục tìm tài xế phù hợp khác. |
-| **Ngoại lệ** | Không còn tài xế phù hợp → Hệ thống thông báo cho khách hàng. |
+| **Tên Use Case** | Cập nhật thông tin cá nhân |
+| **FR liên quan** | FR03 |
+| **Actor chính** | Khách hàng |
+| **Actor phụ** | Không |
+| **Mô tả** | Cho phép khách hàng cập nhật thông tin cá nhân. |
+| **Tiền điều kiện** | Khách hàng đã đăng nhập. |
+| **Hậu điều kiện** | Thông tin cá nhân mới được lưu trong hệ thống. |
+| **Luồng chính** | 1. Khách hàng chọn **Thông tin cá nhân**.<br>2. Hệ thống hiển thị thông tin hiện tại.<br>3. Khách hàng chọn **Chỉnh sửa**.<br>4. Khách hàng cập nhật thông tin cần thay đổi.<br>5. Khách hàng chọn **Lưu**.<br>6. Hệ thống kiểm tra thông tin.<br>7. Hệ thống cập nhật dữ liệu.<br>8. Hệ thống thông báo cập nhật thành công. |
+| **Luồng thay thế** | **5.1. Khách hàng chọn Hủy:** Hệ thống không lưu thay đổi và quay lại màn hình thông tin cá nhân. |
+| **Ngoại lệ** | **6.1. Thông tin không hợp lệ:** Hệ thống hiển thị lỗi và yêu cầu sửa lại. |
 
 ---
 
-## UC04 – Thực hiện chuyến đi
+## UC04 – Xem lịch sử chuyến đi
 
 | Thuộc tính | Nội dung |
 |---|---|
 | **Mã Use Case** | UC04 |
-| **Tên Use Case** | Thực hiện chuyến đi |
-| **Actor** | Tài xế, Khách hàng |
-| **Mô tả** | Cho phép tài xế cập nhật và khách hàng theo dõi trạng thái chuyến. |
-| **Tiền điều kiện** | Tài xế đã nhận chuyến. |
-| **Hậu điều kiện** | Chuyến được lưu ở trạng thái Hoàn thành và tài xế trở về trạng thái Sẵn sàng. |
-| **Luồng chính** | 1. Tài xế cập nhật Đã đến điểm đón.<br>2. Tài xế cập nhật Đã đón khách.<br>3. Tài xế cập nhật Đang di chuyển.<br>4. Khách hàng xem trạng thái hiện tại.<br>5. Tài xế cập nhật Hoàn thành.<br>6. Hệ thống lưu chuyến và chuyển tài xế về Sẵn sàng.<br>7. Hệ thống tạo thông báo chuyến hoàn thành. |
-| **Ngoại lệ** | Trạng thái cập nhật không hợp lệ → Hệ thống từ chối cập nhật. |
+| **Tên Use Case** | Xem lịch sử chuyến đi |
+| **FR liên quan** | FR04 |
+| **Actor chính** | Khách hàng |
+| **Actor phụ** | Không |
+| **Mô tả** | Cho phép khách hàng xem các chuyến đi đã được lưu trong hệ thống. |
+| **Tiền điều kiện** | Khách hàng đã đăng nhập. |
+| **Hậu điều kiện** | Danh sách lịch sử chuyến đi được hiển thị, dữ liệu không bị thay đổi. |
+| **Luồng chính** | 1. Khách hàng chọn **Lịch sử chuyến đi**.<br>2. Hệ thống tìm các chuyến thuộc khách hàng.<br>3. Hệ thống hiển thị danh sách chuyến.<br>4. Khách hàng chọn một chuyến.<br>5. Hệ thống hiển thị chi tiết chuyến đi. |
+| **Luồng thay thế** | Không |
+| **Ngoại lệ** | **3.1. Chưa có lịch sử chuyến:** Hệ thống hiển thị danh sách rỗng và thông báo chưa có chuyến đi. |
 
 ---
 
-## UC05 – Thanh toán
+## UC05 – Quản lý hồ sơ tài xế
 
 | Thuộc tính | Nội dung |
 |---|---|
 | **Mã Use Case** | UC05 |
-| **Tên Use Case** | Thanh toán |
-| **Actor chính** | Khách hàng |
-| **Actor phụ** | Nhà cung cấp thanh toán |
-| **Mô tả** | Cho phép khách hàng thanh toán chuyến đi bằng tiền mặt hoặc thanh toán điện tử. |
-| **Tiền điều kiện** | Chuyến đã hoàn thành và số tiền cước đã được ghi nhận. |
-| **Hậu điều kiện** | Phương thức và kết quả thanh toán được lưu trong hệ thống. |
-| **Luồng chính** | 1. Hệ thống hiển thị số tiền phải trả.<br>2. Khách hàng chọn phương thức thanh toán.<br>3. Khách hàng chọn thanh toán điện tử.<br>4. Hệ thống gửi yêu cầu đến nhà cung cấp thanh toán.<br>5. Nhà cung cấp thanh toán trả kết quả.<br>6. Hệ thống ghi nhận kết quả giao dịch.<br>7. Hệ thống thông báo kết quả cho khách hàng. |
-| **Luồng thay thế** | Khách hàng chọn tiền mặt → Hệ thống ghi nhận phương thức tiền mặt và kết quả thanh toán. |
-| **Ngoại lệ** | Thanh toán điện tử thất bại → Hệ thống ghi nhận trạng thái thất bại, thông báo cho khách hàng và cho phép thử lại. |
+| **Tên Use Case** | Quản lý hồ sơ tài xế |
+| **FR liên quan** | FR05 |
+| **Actor chính** | Tài xế |
+| **Actor phụ** | Không |
+| **Mô tả** | Cho phép tài xế tạo hoặc cập nhật thông tin hồ sơ của mình. |
+| **Tiền điều kiện** | Tài xế đã có tài khoản và đăng nhập hệ thống. |
+| **Hậu điều kiện** | Hồ sơ tài xế được tạo hoặc cập nhật trong hệ thống. |
+| **Luồng chính** | 1. Tài xế chọn **Hồ sơ cá nhân**.<br>2. Hệ thống hiển thị thông tin hồ sơ hiện tại.<br>3. Tài xế nhập hoặc chỉnh sửa thông tin.<br>4. Tài xế chọn **Lưu**.<br>5. Hệ thống kiểm tra dữ liệu.<br>6. Hệ thống lưu thông tin hồ sơ.<br>7. Hệ thống thông báo thành công. |
+| **Luồng thay thế** | **4.1. Tài xế chọn Hủy:** Hệ thống không lưu thay đổi. |
+| **Ngoại lệ** | **5.1. Thông tin không hợp lệ:** Hệ thống yêu cầu tài xế kiểm tra và nhập lại. |
 
 ---
 
-## UC06 – Đánh giá tài xế
+## UC06 – Quản lý thông tin phương tiện
 
 | Thuộc tính | Nội dung |
 |---|---|
 | **Mã Use Case** | UC06 |
-| **Tên Use Case** | Đánh giá tài xế |
-| **Actor** | Khách hàng |
-| **Mô tả** | Cho phép khách hàng gửi điểm và nhận xét cho tài xế sau chuyến. |
-| **Tiền điều kiện** | Chuyến đã hoàn thành. |
-| **Hậu điều kiện** | Đánh giá được lưu trong hệ thống. |
-| **Luồng chính** | 1. Khách hàng chọn chuyến đã hoàn thành.<br>2. Nhập điểm đánh giá.<br>3. Nhập nhận xét.<br>4. Gửi đánh giá.<br>5. Hệ thống lưu đánh giá. |
+| **Tên Use Case** | Quản lý thông tin phương tiện |
+| **FR liên quan** | FR06 |
+| **Actor chính** | Tài xế |
+| **Actor phụ** | Không |
+| **Mô tả** | Cho phép tài xế tạo hoặc cập nhật thông tin phương tiện sử dụng để nhận chuyến. |
+| **Tiền điều kiện** | Tài xế đã đăng nhập. |
+| **Hậu điều kiện** | Thông tin phương tiện được lưu trong hệ thống. |
+| **Luồng chính** | 1. Tài xế chọn **Thông tin phương tiện**.<br>2. Hệ thống hiển thị thông tin phương tiện hiện tại.<br>3. Tài xế nhập hoặc cập nhật loại xe, biển số, tên xe.<br>4. Tài xế chọn **Lưu**.<br>5. Hệ thống kiểm tra dữ liệu.<br>6. Hệ thống lưu thông tin phương tiện.<br>7. Hệ thống thông báo thành công. |
+| **Luồng thay thế** | **4.1. Tài xế chọn Hủy:** Hệ thống không lưu thay đổi. |
+| **Ngoại lệ** | **5.1. Biển số hoặc thông tin phương tiện không hợp lệ:** Hệ thống thông báo và yêu cầu nhập lại. |
 
 ---
 
-## UC07 – Quản lý vận hành
+## UC07 – Cập nhật trạng thái và khu vực hoạt động
 
 | Thuộc tính | Nội dung |
 |---|---|
 | **Mã Use Case** | UC07 |
-| **Tên Use Case** | Quản lý vận hành |
-| **Actor** | Nhân viên vận hành |
-| **Mô tả** | Cho phép nhân viên quản lý dữ liệu vận hành của CAB System. |
-| **Tiền điều kiện** | Nhân viên đã đăng nhập và có quyền phù hợp. |
-| **Hậu điều kiện** | Dữ liệu được hiển thị hoặc cập nhật theo thao tác hợp lệ. |
-| **Luồng chính** | 1. Nhân viên chọn chức năng quản lý.<br>2. Quản lý thông tin khách hàng.<br>3. Quản lý thông tin tài xế.<br>4. Quản lý thông tin phương tiện.<br>5. Xem và quản lý thông tin chuyến đi. |
-| **Ngoại lệ** | Nhân viên không có quyền → Hệ thống từ chối truy cập. |
+| **Tên Use Case** | Cập nhật trạng thái và khu vực hoạt động |
+| **FR liên quan** | FR07–FR08 |
+| **Actor chính** | Tài xế |
+| **Actor phụ** | Không |
+| **Mô tả** | Cho phép tài xế cập nhật trạng thái Sẵn sàng/Bận và khu vực hoạt động. |
+| **Tiền điều kiện** | Tài xế đã đăng nhập và có hồ sơ hợp lệ. |
+| **Hậu điều kiện** | Trạng thái và khu vực hoạt động mới của tài xế được lưu. |
+| **Luồng chính** | 1. Tài xế chọn **Trạng thái hoạt động**.<br>2. Hệ thống hiển thị trạng thái và khu vực hiện tại.<br>3. Tài xế chọn trạng thái Sẵn sàng hoặc Bận.<br>4. Tài xế chọn khu vực hoạt động.<br>5. Tài xế chọn **Cập nhật**.<br>6. Hệ thống lưu thông tin mới. |
+| **Luồng thay thế** | Không |
+| **Ngoại lệ** | **3.1. Tài xế đang thực hiện chuyến nhưng chọn Sẵn sàng:** Hệ thống từ chối cập nhật trạng thái không phù hợp. |
 
 ---
 
-## UC08 – Xem báo cáo cơ bản
+## UC08 – Đặt xe
 
 | Thuộc tính | Nội dung |
 |---|---|
 | **Mã Use Case** | UC08 |
-| **Tên Use Case** | Xem báo cáo cơ bản |
-| **Actor** | Ban lãnh đạo / Người dùng có quyền |
-| **Mô tả** | Cho phép xem các số liệu hoạt động cơ bản của CAB System. |
-| **Tiền điều kiện** | Người dùng đã đăng nhập và có quyền xem báo cáo. |
-| **Hậu điều kiện** | Báo cáo được hiển thị. |
-| **Luồng chính** | 1. Người dùng chọn chức năng Báo cáo.<br>2. Hệ thống tổng hợp dữ liệu.<br>3. Hiển thị tổng số chuyến.<br>4. Hiển thị số chuyến đã hoàn thành.<br>5. Hiển thị tổng doanh thu. |
-| **Ngoại lệ** | Người dùng không có quyền → Hệ thống từ chối truy cập. |
+| **Tên Use Case** | Đặt xe |
+| **FR liên quan** | FR09–FR12 |
+| **Actor chính** | Khách hàng |
+| **Actor phụ** | Không |
+| **Mô tả** | Cho phép khách hàng tạo yêu cầu đặt xe. |
+| **Tiền điều kiện** | Khách hàng đã đăng nhập. |
+| **Hậu điều kiện** | Yêu cầu đặt xe được tạo với trạng thái **Đang tìm tài xế**. |
+| **Luồng chính** | 1. Khách hàng chọn **Đặt xe**.<br>2. Khách hàng nhập điểm đón.<br>3. Khách hàng nhập điểm đến.<br>4. Khách hàng chọn loại xe.<br>5. Khách hàng chọn **Đặt xe**.<br>6. Hệ thống kiểm tra thông tin.<br>7. Hệ thống tạo yêu cầu chuyến.<br>8. Hệ thống chuyển chuyến sang trạng thái **Đang tìm tài xế**. |
+| **Luồng thay thế** | Không |
+| **Ngoại lệ** | **6.1. Điểm đón, điểm đến hoặc loại xe không hợp lệ:** Hệ thống yêu cầu khách hàng kiểm tra và nhập lại. |
 
 ---
+
+## UC09 – Tìm và phân công tài xế
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC09 |
+| **Tên Use Case** | Tìm và phân công tài xế |
+| **FR liên quan** | FR13–FR18, FR30 |
+| **Actor chính** | Khách hàng |
+| **Actor phụ** | Tài xế |
+| **Mô tả** | Hệ thống tìm tài xế sẵn sàng, phù hợp với loại phương tiện và khu vực để phân công cho chuyến. |
+| **Tiền điều kiện** | Khách hàng đã tạo yêu cầu đặt xe. |
+| **Hậu điều kiện** | Tài xế được phân công cho chuyến hoặc khách hàng được thông báo không tìm được tài xế. |
+| **Luồng chính** | 1. Hệ thống tìm các tài xế có trạng thái **Sẵn sàng**.<br>2. Hệ thống lọc theo loại phương tiện.<br>3. Hệ thống lọc theo khu vực hoạt động.<br>4. Hệ thống chọn một tài xế phù hợp.<br>5. Hệ thống gửi yêu cầu chuyến cho tài xế.<br>6. Tài xế xem yêu cầu chuyến.<br>7. Tài xế chọn **Chấp nhận**.<br>8. Hệ thống phân công tài xế cho chuyến.<br>9. Hệ thống chuyển trạng thái tài xế sang **Bận**.<br>10. Hệ thống tạo thông báo tài xế đã nhận chuyến.<br>11. Hệ thống hiển thị thông tin tài xế cho khách hàng. |
+| **Luồng thay thế** | **7.1. Tài xế chọn Từ chối:** Hệ thống loại tài xế đó khỏi lần tìm hiện tại và quay lại bước 4 để chọn tài xế phù hợp khác. |
+| **Ngoại lệ** | **4.1. Không còn tài xế phù hợp:** Hệ thống thông báo không tìm được tài xế và kết thúc Use Case. |
+
+---
+
+## UC10 – Theo dõi chuyến đi
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC10 |
+| **Tên Use Case** | Theo dõi chuyến đi |
+| **FR liên quan** | FR19, FR21 |
+| **Actor chính** | Khách hàng |
+| **Actor phụ** | Không |
+| **Mô tả** | Cho phép khách hàng xem thông tin tài xế và trạng thái hiện tại của chuyến. |
+| **Tiền điều kiện** | Chuyến đã được phân công tài xế. |
+| **Hậu điều kiện** | Thông tin chuyến được hiển thị, dữ liệu không bị thay đổi. |
+| **Luồng chính** | 1. Khách hàng mở chuyến hiện tại.<br>2. Hệ thống hiển thị thông tin tài xế và phương tiện.<br>3. Hệ thống hiển thị trạng thái hiện tại của chuyến.<br>4. Khi trạng thái chuyến thay đổi, hệ thống hiển thị trạng thái mới cho khách hàng. |
+| **Luồng thay thế** | Không |
+| **Ngoại lệ** | **2.1. Chưa có tài xế được phân công:** Hệ thống hiển thị trạng thái **Đang tìm tài xế**. |
+
+---
+
+## UC11 – Cập nhật và hoàn thành chuyến đi
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC11 |
+| **Tên Use Case** | Cập nhật và hoàn thành chuyến đi |
+| **FR liên quan** | FR20, FR22, FR31 |
+| **Actor chính** | Tài xế |
+| **Actor phụ** | Khách hàng |
+| **Mô tả** | Cho phép tài xế cập nhật trạng thái trong quá trình thực hiện chuyến và hoàn thành chuyến. |
+| **Tiền điều kiện** | Tài xế đã được phân công cho chuyến. |
+| **Hậu điều kiện** | Chuyến được lưu ở trạng thái Hoàn thành và tài xế trở về trạng thái Sẵn sàng. |
+| **Luồng chính** | 1. Tài xế cập nhật trạng thái **Đã đến điểm đón**.<br>2. Hệ thống lưu trạng thái.<br>3. Tài xế cập nhật **Đã đón khách**.<br>4. Hệ thống lưu trạng thái.<br>5. Tài xế cập nhật **Đang di chuyển**.<br>6. Hệ thống lưu trạng thái.<br>7. Tài xế chọn **Hoàn thành chuyến**.<br>8. Hệ thống cập nhật chuyến thành **Hoàn thành**.<br>9. Hệ thống lưu thông tin chuyến đi.<br>10. Hệ thống chuyển tài xế về trạng thái **Sẵn sàng**.<br>11. Hệ thống tạo thông báo chuyến đã hoàn thành. |
+| **Luồng thay thế** | Không |
+| **Ngoại lệ** | **1.1/3.1/5.1/7.1. Trạng thái không đúng trình tự:** Hệ thống từ chối cập nhật và thông báo cho tài xế. |
+
+---
+
+## UC12 – Thanh toán tiền mặt
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC12 |
+| **Tên Use Case** | Thanh toán tiền mặt |
+| **FR liên quan** | FR23–FR26, FR29 |
+| **Actor chính** | Khách hàng |
+| **Actor phụ** | Không |
+| **Mô tả** | Cho phép ghi nhận thanh toán bằng tiền mặt cho chuyến đã hoàn thành. |
+| **Tiền điều kiện** | Chuyến đã hoàn thành và số tiền cước đã được xác định. |
+| **Hậu điều kiện** | Phương thức và kết quả thanh toán tiền mặt được lưu. |
+| **Luồng chính** | 1. Hệ thống ghi nhận số tiền cước của chuyến.<br>2. Hệ thống hiển thị số tiền phải trả.<br>3. Khách hàng chọn phương thức **Tiền mặt**.<br>4. Khách hàng thực hiện thanh toán tiền mặt.<br>5. Hệ thống ghi nhận phương thức thanh toán.<br>6. Hệ thống cập nhật kết quả thanh toán thành **Đã thanh toán**.<br>7. Hệ thống thông báo kết quả thanh toán cho khách hàng. |
+| **Luồng thay thế** | Không |
+| **Ngoại lệ** | Không |
+
+---
+
+## UC13 – Thanh toán điện tử
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC13 |
+| **Tên Use Case** | Thanh toán điện tử |
+| **FR liên quan** | FR23–FR25, FR27–FR29 |
+| **Actor chính** | Khách hàng |
+| **Actor phụ** | Nhà cung cấp thanh toán |
+| **Mô tả** | Cho phép khách hàng thanh toán điện tử cho chuyến đi. |
+| **Tiền điều kiện** | Chuyến đã hoàn thành và số tiền cước đã được xác định. |
+| **Hậu điều kiện** | Kết quả giao dịch điện tử được ghi nhận trong hệ thống. |
+| **Luồng chính** | 1. Hệ thống ghi nhận số tiền cước.<br>2. Hệ thống hiển thị số tiền phải trả.<br>3. Khách hàng chọn **Thanh toán điện tử**.<br>4. Hệ thống tạo yêu cầu thanh toán.<br>5. Hệ thống gửi yêu cầu đến nhà cung cấp thanh toán.<br>6. Nhà cung cấp thanh toán xử lý giao dịch.<br>7. Nhà cung cấp thanh toán trả kết quả thành công.<br>8. Hệ thống ghi nhận trạng thái **Thanh toán thành công**.<br>9. Hệ thống thông báo kết quả cho khách hàng. |
+| **Luồng thay thế** | Không |
+| **Ngoại lệ** | **7.1. Thanh toán thất bại:** Hệ thống ghi nhận trạng thái **Thất bại**, thông báo cho khách hàng và cho phép khách hàng thực hiện lại thanh toán. |
+
+---
+
+## UC14 – Đánh giá tài xế
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC14 |
+| **Tên Use Case** | Đánh giá tài xế |
+| **FR liên quan** | FR32 |
+| **Actor chính** | Khách hàng |
+| **Actor phụ** | Không |
+| **Mô tả** | Cho phép khách hàng gửi điểm đánh giá và nhận xét cho tài xế. |
+| **Tiền điều kiện** | Chuyến đi đã hoàn thành. |
+| **Hậu điều kiện** | Đánh giá được lưu và gắn với chuyến đi, khách hàng và tài xế tương ứng. |
+| **Luồng chính** | 1. Khách hàng chọn chuyến đã hoàn thành.<br>2. Khách hàng chọn **Đánh giá tài xế**.<br>3. Hệ thống hiển thị biểu mẫu đánh giá.<br>4. Khách hàng chọn số điểm.<br>5. Khách hàng nhập nhận xét nếu có.<br>6. Khách hàng chọn **Gửi đánh giá**.<br>7. Hệ thống lưu đánh giá.<br>8. Hệ thống thông báo đánh giá thành công. |
+| **Luồng thay thế** | Không |
+| **Ngoại lệ** | **7.1. Chuyến chưa hoàn thành:** Hệ thống không cho phép gửi đánh giá. |
+
+---
+
+## UC15 – Quản lý khách hàng
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC15 |
+| **Tên Use Case** | Quản lý khách hàng |
+| **FR liên quan** | FR33 |
+| **Actor chính** | Nhân viên vận hành |
+| **Actor phụ** | Không |
+| **Mô tả** | Cho phép nhân viên vận hành xem và quản lý thông tin khách hàng. |
+| **Tiền điều kiện** | Nhân viên đã đăng nhập và có quyền quản lý khách hàng. |
+| **Hậu điều kiện** | Thông tin khách hàng được hiển thị hoặc cập nhật theo thao tác hợp lệ. |
+| **Luồng chính** | 1. Nhân viên chọn **Quản lý khách hàng**.<br>2. Hệ thống hiển thị danh sách khách hàng.<br>3. Nhân viên tìm và chọn khách hàng cần quản lý.<br>4. Hệ thống hiển thị chi tiết khách hàng.<br>5. Nhân viên cập nhật thông tin cần thiết.<br>6. Nhân viên chọn **Lưu**.<br>7. Hệ thống kiểm tra và cập nhật dữ liệu. |
+| **Luồng thay thế** | **3.1. Nhân viên chỉ xem thông tin:** Không thực hiện cập nhật và kết thúc Use Case. |
+| **Ngoại lệ** | **1.1. Nhân viên không có quyền:** Hệ thống từ chối truy cập. |
+
+---
+
+## UC16 – Quản lý tài xế
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC16 |
+| **Tên Use Case** | Quản lý tài xế |
+| **FR liên quan** | FR34 |
+| **Actor chính** | Nhân viên vận hành |
+| **Actor phụ** | Không |
+| **Mô tả** | Cho phép nhân viên vận hành xem, tạo hoặc cập nhật thông tin tài xế. |
+| **Tiền điều kiện** | Nhân viên đã đăng nhập và có quyền quản lý tài xế. |
+| **Hậu điều kiện** | Thông tin tài xế được tạo hoặc cập nhật. |
+| **Luồng chính** | 1. Nhân viên chọn **Quản lý tài xế**.<br>2. Hệ thống hiển thị danh sách tài xế.<br>3. Nhân viên chọn một tài xế.<br>4. Hệ thống hiển thị thông tin tài xế.<br>5. Nhân viên cập nhật thông tin cần thiết.<br>6. Nhân viên chọn **Lưu**.<br>7. Hệ thống kiểm tra và cập nhật dữ liệu. |
+| **Luồng thay thế** | **3.1. Tạo tài xế mới:** Nhân viên chọn **Thêm tài xế**, nhập thông tin, hệ thống kiểm tra và tạo hồ sơ mới.<br>**3.2. Chỉ xem thông tin:** Nhân viên không thay đổi dữ liệu và kết thúc Use Case. |
+| **Ngoại lệ** | **1.1. Không có quyền:** Hệ thống từ chối truy cập.<br>**7.1. Thông tin không hợp lệ:** Hệ thống yêu cầu kiểm tra lại. |
+
+---
+
+## UC17 – Quản lý phương tiện
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC17 |
+| **Tên Use Case** | Quản lý phương tiện |
+| **FR liên quan** | FR35 |
+| **Actor chính** | Nhân viên vận hành |
+| **Actor phụ** | Không |
+| **Mô tả** | Cho phép nhân viên vận hành xem, tạo và cập nhật thông tin phương tiện. |
+| **Tiền điều kiện** | Nhân viên đã đăng nhập và có quyền quản lý phương tiện. |
+| **Hậu điều kiện** | Thông tin phương tiện được tạo hoặc cập nhật. |
+| **Luồng chính** | 1. Nhân viên chọn **Quản lý phương tiện**.<br>2. Hệ thống hiển thị danh sách phương tiện.<br>3. Nhân viên chọn phương tiện cần quản lý.<br>4. Hệ thống hiển thị chi tiết phương tiện.<br>5. Nhân viên cập nhật thông tin.<br>6. Nhân viên chọn **Lưu**.<br>7. Hệ thống kiểm tra và cập nhật dữ liệu. |
+| **Luồng thay thế** | **3.1. Thêm phương tiện mới:** Nhân viên nhập thông tin phương tiện và tài xế tương ứng, sau đó lưu.<br>**3.2. Chỉ xem:** Không thay đổi dữ liệu. |
+| **Ngoại lệ** | **1.1. Không có quyền:** Hệ thống từ chối truy cập.<br>**7.1. Biển số hoặc dữ liệu không hợp lệ:** Hệ thống yêu cầu nhập lại. |
+
+---
+
+## UC18 – Quản lý chuyến đi
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC18 |
+| **Tên Use Case** | Quản lý chuyến đi |
+| **FR liên quan** | FR36 |
+| **Actor chính** | Nhân viên vận hành |
+| **Actor phụ** | Không |
+| **Mô tả** | Cho phép nhân viên vận hành xem và quản lý thông tin chuyến đi. |
+| **Tiền điều kiện** | Nhân viên đã đăng nhập và có quyền quản lý chuyến đi. |
+| **Hậu điều kiện** | Thông tin chuyến được hiển thị hoặc cập nhật theo thao tác hợp lệ. |
+| **Luồng chính** | 1. Nhân viên chọn **Quản lý chuyến đi**.<br>2. Hệ thống hiển thị danh sách chuyến.<br>3. Nhân viên tìm và chọn chuyến cần xem.<br>4. Hệ thống hiển thị thông tin khách hàng, tài xế, điểm đón, điểm đến, trạng thái, cước và thanh toán.<br>5. Nhân viên xem hoặc cập nhật thông tin được phép.<br>6. Hệ thống lưu thay đổi nếu có. |
+| **Luồng thay thế** | **5.1. Nhân viên chỉ xem chuyến:** Không thay đổi dữ liệu và kết thúc Use Case. |
+| **Ngoại lệ** | **1.1. Không có quyền:** Hệ thống từ chối truy cập. |
+
+---
+
+## UC19 – Quản lý quyền truy cập
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC19 |
+| **Tên Use Case** | Quản lý quyền truy cập |
+| **FR liên quan** | FR37 |
+| **Actor chính** | Nhân viên vận hành có quyền quản trị |
+| **Actor phụ** | Không |
+| **Mô tả** | Cho phép người có quyền quản trị kiểm soát quyền truy cập các chức năng quản trị. |
+| **Tiền điều kiện** | Người dùng đã đăng nhập và có quyền quản lý phân quyền. |
+| **Hậu điều kiện** | Quyền truy cập mới được lưu và áp dụng cho tài khoản tương ứng. |
+| **Luồng chính** | 1. Người quản trị chọn **Quản lý quyền truy cập**.<br>2. Hệ thống hiển thị danh sách tài khoản quản trị.<br>3. Người quản trị chọn một tài khoản.<br>4. Hệ thống hiển thị vai trò và quyền hiện tại.<br>5. Người quản trị thay đổi quyền hoặc vai trò.<br>6. Người quản trị chọn **Lưu**.<br>7. Hệ thống kiểm tra quyền của người thực hiện.<br>8. Hệ thống lưu cấu hình quyền mới. |
+| **Luồng thay thế** | **6.1. Người quản trị chọn Hủy:** Hệ thống không lưu thay đổi. |
+| **Ngoại lệ** | **7.1. Người thực hiện không có quyền phân quyền:** Hệ thống từ chối thao tác. |
+
+---
+
+## UC20 – Xem báo cáo cơ bản
+
+| Thuộc tính | Nội dung |
+|---|---|
+| **Mã Use Case** | UC20 |
+| **Tên Use Case** | Xem báo cáo cơ bản |
+| **FR liên quan** | FR38–FR40 |
+| **Actor chính** | Ban lãnh đạo / Người dùng có quyền |
+| **Actor phụ** | Không |
+| **Mô tả** | Cho phép người có quyền xem các số liệu hoạt động cơ bản của CAB System. |
+| **Tiền điều kiện** | Người dùng đã đăng nhập và có quyền xem báo cáo. |
+| **Hậu điều kiện** | Báo cáo được hiển thị, dữ liệu hệ thống không bị thay đổi. |
+| **Luồng chính** | 1. Người dùng chọn **Báo cáo**.<br>2. Hệ thống lấy dữ liệu chuyến đi và thanh toán.<br>3. Hệ thống tính tổng số chuyến.<br>4. Hệ thống tính số chuyến đã hoàn thành.<br>5. Hệ thống tính tổng doanh thu.<br>6. Hệ thống hiển thị báo cáo cho người dùng. |
+| **Luồng thay thế** | Không |
+| **Ngoại lệ** | **1.1. Người dùng không có quyền xem báo cáo:** Hệ thống từ chối truy cập. |
 
 # Bước 13: Tiêu chí chấp nhận (Acceptance Criteria)- nhờ nó mới được nghiệm thu, cho biết khi nào dự án hoàn thành và được nghiệm thu
 ## Tiêu chí chấp nhận (Acceptance Criteria)
