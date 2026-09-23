@@ -252,29 +252,29 @@ F04: Tính khoảng cách từ điểm đi đến điểm đón
 | NFR09 | Khả năng bảo trì | Mã nguồn phải được tổ chức rõ ràng để dễ sửa đổi và bổ sung. |
 # Bước 11: Vẽ use case
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/84806b90-0d8d-4977-a9bb-c81b46e08680" />
-| **Mã UC** | **Tên Use Case**                         | **Actor chính**                        | **Actor phụ**           | **Functional Requirement** |
-| --------- | ---------------------------------------- | -------------------------------------- | ----------------------- | -------------------------- |
-| UC01      | Đăng ký tài khoản khách hàng             | Khách hàng                             | Không                   | FR01                       |
-| UC02      | Đăng nhập hệ thống                       | Khách hàng, Tài xế, Nhân viên vận hành | Không                   | FR02                       |
-| UC03      | Cập nhật thông tin cá nhân               | Khách hàng                             | Không                   | FR03                       |
-| UC04      | Xem lịch sử chuyến đi                    | Khách hàng                             | Không                   | FR04                       |
-| UC05      | Quản lý hồ sơ tài xế                     | Tài xế                                 | Không                   | FR05                       |
-| UC06      | Quản lý thông tin phương tiện            | Tài xế                                 | Không                   | FR06                       |
-| UC07      | Cập nhật trạng thái và khu vực hoạt động | Tài xế                                 | Không                   | FR07–FR08                  |
-| UC08      | Đặt xe                                   | Khách hàng                             | Không                   | FR09–FR12                  |
-| UC09      | Tìm và phân công tài xế                  | Khách hàng                             | Tài xế                  | FR13–FR18, FR30            |
-| UC10      | Theo dõi chuyến đi                       | Khách hàng                             | Không                   | FR19, FR21                 |
-| UC11      | Cập nhật và hoàn thành chuyến đi         | Tài xế                                 | Khách hàng              | FR20, FR22, FR31           |
-| UC12      | Thanh toán tiền mặt                      | Khách hàng                             | Không                   | FR23–FR26, FR29            |
-| UC13      | Thanh toán điện tử                       | Khách hàng                             | Nhà cung cấp thanh toán | FR23–FR25, FR27–FR29       |
-| UC14      | Đánh giá tài xế                          | Khách hàng                             | Không                   | FR32                       |
-| UC15      | Quản lý khách hàng                       | Nhân viên vận hành                     | Không                   | FR33                       |
-| UC16      | Quản lý tài xế                           | Nhân viên vận hành                     | Không                   | FR34                       |
-| UC17      | Quản lý phương tiện                      | Nhân viên vận hành                     | Không                   | FR35                       |
-| UC18      | Quản lý chuyến đi                        | Nhân viên vận hành                     | Không                   | FR36                       |
-| UC19      | Quản lý quyền truy cập                   | Nhân viên vận hành                     | Không                   | FR37                       |
-| UC20      | Xem báo cáo cơ bản                       | Ban lãnh đạo / Người có quyền          | Không                   | FR38–FR40                  |
 
+| Mã UC | Tên Use Case | Actor chính | Actor phụ | Functional Requirement |
+|---|---|---|---|---|
+| UC01 | Đăng ký tài khoản khách hàng | Khách hàng | Không | FR01 |
+| UC02 | Đăng nhập hệ thống | Khách hàng, Tài xế, Nhân viên vận hành | Không | FR02 |
+| UC03 | Cập nhật thông tin cá nhân | Khách hàng | Không | FR03 |
+| UC04 | Xem lịch sử chuyến đi | Khách hàng | Không | FR04 |
+| UC05 | Quản lý hồ sơ tài xế | Tài xế | Không | FR05 |
+| UC06 | Quản lý thông tin phương tiện | Tài xế | Không | FR06 |
+| UC07 | Cập nhật trạng thái và khu vực hoạt động | Tài xế | Không | FR07–FR08 |
+| UC08 | Đặt xe | Khách hàng | Không | FR09–FR12 |
+| UC09 | Tìm và phân công tài xế | Khách hàng | Tài xế | FR13–FR18, FR30 |
+| UC10 | Theo dõi chuyến đi | Khách hàng | Không | FR19, FR21 |
+| UC11 | Cập nhật và hoàn thành chuyến đi | Tài xế | Khách hàng | FR20, FR22, FR31 |
+| UC12 | Thanh toán tiền mặt | Khách hàng | Không | FR23–FR26, FR29 |
+| UC13 | Thanh toán điện tử | Khách hàng | Nhà cung cấp thanh toán | FR23–FR25, FR27–FR29 |
+| UC14 | Đánh giá tài xế | Khách hàng | Không | FR32 |
+| UC15 | Quản lý khách hàng | Nhân viên vận hành | Không | FR33 |
+| UC16 | Quản lý tài xế | Nhân viên vận hành | Không | FR34 |
+| UC17 | Quản lý phương tiện | Nhân viên vận hành | Không | FR35 |
+| UC18 | Quản lý chuyến đi | Nhân viên vận hành | Không | FR36 |
+| UC19 | Quản lý quyền truy cập | Nhân viên vận hành | Không | FR37 |
+| UC20 | Xem báo cáo cơ bản | Ban lãnh đạo / Người có quyền | Không | FR38–FR40 |
 
 # Bước 12: Đặc tả Use Case
 
