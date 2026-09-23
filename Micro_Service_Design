@@ -1,0 +1,288 @@
+1. Bounded Context
+Dựa trên yêu cầu của hệ thống CAB System, hệ thống được phân rã thành 8 Bounded Context chính:
+Mã	Bounded Context	Trách nhiệm chính
+BC01	Identity & Access Context	Quản lý tài khoản, xác thực và phân quyền người dùng
+BC02	Driver & Vehicle Context	Quản lý tài xế, phương tiện và trạng thái hoạt động
+BC03	Booking Context	Quản lý yêu cầu đặt xe của khách hàng
+BC04	Dispatch Context	Tìm kiếm và phân công tài xế
+BC05	Trip Context	Quản lý quá trình thực hiện chuyến đi
+BC06	Payment Context	Quản lý cước và thanh toán
+BC07	Notification Context	Quản lý thông báo
+BC08	Operations & Reporting Context	Hỗ trợ vận hành, tra cứu và báo cáo
+2. BC01 - Identity & Access Context
+Mục đích
+
+Identity & Access Context chịu trách nhiệm quản lý tài khoản và quyền truy cập của người dùng trong CAB System.
+
+Phạm vi xử lý
+Đăng ký tài khoản khách hàng.
+Đăng nhập và đăng xuất hệ thống.
+Cập nhật thông tin cá nhân.
+Quản lý trạng thái tài khoản.
+Xác thực người dùng.
+Phân quyền người dùng theo vai trò.
+Kiểm soát quyền truy cập vào các chức năng của hệ thống.
+Đối tượng liên quan
+Khách hàng.
+Tài xế.
+Nhân viên vận hành.
+Ranh giới
+
+Context này chỉ quản lý thông tin tài khoản và quyền truy cập.
+
+Các thông tin nghiệp vụ như trạng thái AVAILABLE, BUSY hoặc phương tiện của tài xế không thuộc Identity & Access Context mà thuộc Driver & Vehicle Context.
+
+3. BC02 - Driver & Vehicle Context
+Mục đích
+
+Driver & Vehicle Context chịu trách nhiệm quản lý thông tin tài xế, phương tiện và trạng thái hoạt động của tài xế.
+
+Phạm vi xử lý
+Quản lý hồ sơ tài xế.
+Quản lý thông tin phương tiện.
+Quản lý loại phương tiện.
+Quản lý khu vực hoạt động của tài xế.
+Cập nhật trạng thái hoạt động của tài xế.
+Xác định tài xế có đang sẵn sàng nhận chuyến hay không.
+Cung cấp thông tin tài xế cho Dispatch Context.
+Cập nhật trạng thái tài xế sau khi nhận hoặc hoàn thành chuyến.
+Trạng thái tài xế
+AVAILABLE
+BUSY
+OFFLINE
+
+Trong đó:
+
+AVAILABLE: tài xế đang sẵn sàng nhận chuyến.
+BUSY: tài xế đang được phân công hoặc đang thực hiện chuyến.
+OFFLINE: tài xế hiện không nhận chuyến.
+Ranh giới
+
+Driver & Vehicle Context không quyết định tài xế nào sẽ được phân công cho một yêu cầu đặt xe.
+
+Việc tìm và phân công tài xế thuộc trách nhiệm của Dispatch Context.
+
+4. BC03 - Booking Context
+Mục đích
+
+Booking Context chịu trách nhiệm tiếp nhận và quản lý yêu cầu đặt xe của khách hàng.
+
+Phạm vi xử lý
+Nhận điểm đón.
+Nhận điểm đến.
+Cho phép khách hàng chọn loại xe.
+Kiểm tra thông tin đặt xe.
+Tạo yêu cầu đặt xe.
+Gửi yêu cầu tìm tài xế.
+Theo dõi trạng thái yêu cầu trong quá trình tìm tài xế.
+Luồng xử lý chính
+Khách hàng nhập điểm đón
+        ↓
+Nhập điểm đến
+        ↓
+Chọn loại xe
+        ↓
+Gửi yêu cầu đặt xe
+        ↓
+Kiểm tra thông tin
+        ↓
+Tạo yêu cầu đặt xe
+        ↓
+Chuyển sang Dispatch Context
+Ranh giới
+
+Booking Context chỉ quản lý yêu cầu đặt xe.
+
+Yêu cầu đặt xe chưa được xem là một chuyến đi hoàn chỉnh khi chưa có tài xế được phân công.
+
+Việc tìm tài xế thuộc Dispatch Context.
+
+5. BC04 - Dispatch Context
+Mục đích
+
+Dispatch Context chịu trách nhiệm tìm kiếm và phân công tài xế phù hợp với yêu cầu đặt xe.
+
+Đây là một trong những nghiệp vụ chính của CAB System.
+
+Phạm vi xử lý
+Nhận yêu cầu đặt xe từ Booking Context.
+Tìm các tài xế đang ở trạng thái sẵn sàng.
+Lọc tài xế theo loại xe.
+Lọc tài xế theo khu vực hoạt động.
+Gửi yêu cầu nhận chuyến cho tài xế.
+Ghi nhận tài xế nhận chuyến.
+Ghi nhận tài xế từ chối chuyến.
+Xử lý trường hợp tài xế không phản hồi.
+Tìm tài xế khác khi cần.
+Xác nhận phân công tài xế thành công.
+Xử lý trường hợp không còn tài xế phù hợp.
+Điều kiện tìm tài xế
+
+Tài xế được xem là phù hợp khi đáp ứng:
+
+DriverStatus = AVAILABLE
+AND VehicleType phù hợp với loại xe khách yêu cầu
+AND ServiceArea phù hợp với khu vực điểm đón
+Luồng xử lý
+Nhận yêu cầu đặt xe
+        ↓
+Tìm tài xế AVAILABLE
+        ↓
+Lọc theo loại xe
+        ↓
+Lọc theo khu vực
+        ↓
+Gửi yêu cầu nhận chuyến
+        ↓
+Tài xế phản hồi?
+   /              \
+ Có               Không
+  |                  |
+  v                  v
+Nhận chuyến      Tìm tài xế khác
+  |
+  v
+Phân công tài xế
+Ranh giới
+
+Dispatch Context không quản lý hồ sơ tài xế hoặc phương tiện.
+
+Context này chỉ sử dụng dữ liệu từ Driver & Vehicle Context để tìm và phân công tài xế.
+
+Sau khi phân công thành công, thông tin được chuyển sang Trip Context.
+
+6. BC05 - Trip Context
+Mục đích
+
+Trip Context chịu trách nhiệm quản lý chuyến đi sau khi tài xế đã được phân công.
+
+Phạm vi xử lý
+Tạo chuyến đi.
+Ghi nhận khách hàng của chuyến.
+Ghi nhận tài xế được phân công.
+Theo dõi trạng thái chuyến.
+Ghi nhận tài xế đến điểm đón.
+Ghi nhận tài xế đã đón khách.
+Ghi nhận chuyến đang thực hiện.
+Ghi nhận hoàn thành chuyến.
+Lưu lịch sử chuyến.
+Cho phép khách hàng đánh giá tài xế sau chuyến.
+Trạng thái chuyến
+DRIVER_ASSIGNED
+        ↓
+ARRIVED_AT_PICKUP
+        ↓
+PASSENGER_PICKED_UP
+        ↓
+IN_PROGRESS
+        ↓
+COMPLETED
+Ranh giới
+
+Trip Context chỉ quản lý vòng đời của chuyến đi.
+
+Việc tìm tài xế thuộc Dispatch Context.
+
+Việc xử lý thanh toán thuộc Payment Context.
+
+7. BC06 - Payment Context
+Mục đích
+
+Payment Context chịu trách nhiệm quản lý cước và quá trình thanh toán của chuyến đi.
+
+Phạm vi xử lý
+Nhận thông tin chuyến đã hoàn thành.
+Ghi nhận số tiền cần thanh toán.
+Quản lý phương thức thanh toán.
+Xử lý thanh toán tiền mặt.
+Xử lý thanh toán điện tử.
+Gửi yêu cầu đến nhà cung cấp thanh toán bên ngoài.
+Nhận kết quả thanh toán.
+Cập nhật trạng thái thanh toán.
+Xử lý trường hợp thanh toán thất bại.
+Phương thức thanh toán
+CASH
+ELECTRONIC
+Trạng thái thanh toán
+PENDING
+SUCCESS
+FAILED
+Ranh giới
+
+Payment Context không quản lý trạng thái chuyến.
+
+Một chuyến có thể đã ở trạng thái:
+
+COMPLETED
+
+nhưng thanh toán vẫn đang ở trạng thái:
+
+PENDING
+
+Việc tách Payment Context giúp lỗi thanh toán không làm ảnh hưởng đến toàn bộ quá trình đặt và thực hiện chuyến.
+
+8. BC07 - Notification Context
+Mục đích
+
+Notification Context chịu trách nhiệm tạo và quản lý các thông báo gửi đến người dùng.
+
+Phạm vi xử lý
+Thông báo khi tìm thấy tài xế.
+Thông báo khi không tìm thấy tài xế.
+Thông báo khi tài xế nhận chuyến.
+Thông báo khi trạng thái chuyến thay đổi.
+Thông báo khi chuyến hoàn thành.
+Thông báo kết quả thanh toán.
+Lưu trạng thái đã đọc hoặc chưa đọc của thông báo.
+Luồng xử lý
+Sự kiện nghiệp vụ
+        ↓
+Notification Context
+        ↓
+Tạo thông báo
+        ↓
+Gửi hoặc hiển thị cho người dùng
+
+Ví dụ:
+
+DriverAssigned
+        ↓
+Notification Context
+        ↓
+"Đã tìm thấy tài xế cho chuyến của bạn"
+Ranh giới
+
+Notification Context không tự thay đổi trạng thái chuyến, trạng thái tài xế hoặc trạng thái thanh toán.
+
+Context này chỉ nhận thông tin từ các context khác để tạo thông báo tương ứng.
+
+9. BC08 - Operations & Reporting Context
+Mục đích
+
+Operations & Reporting Context chịu trách nhiệm hỗ trợ nhân viên vận hành trong việc theo dõi hoạt động và tổng hợp báo cáo của hệ thống.
+
+Phạm vi xử lý
+Tra cứu khách hàng.
+Tra cứu tài xế.
+Tra cứu phương tiện.
+Tra cứu chuyến đi.
+Theo dõi hoạt động của hệ thống.
+Hỗ trợ xử lý các trường hợp lỗi vận hành.
+Tổng hợp số lượng chuyến.
+Tổng hợp số chuyến hoàn thành.
+Tổng hợp doanh thu.
+Lập báo cáo.
+Theo dõi nhật ký thao tác quan trọng.
+Nguồn dữ liệu
+
+Operations & Reporting Context sử dụng dữ liệu từ:
+
+Identity & Access Context
+Driver & Vehicle Context
+Trip Context
+Payment Context
+Ranh giới
+
+Context này chủ yếu phục vụ việc tra cứu và tổng hợp dữ liệu.
+
+Operations & Reporting Context không sở hữu trực tiếp các nghiệp vụ đặt xe, phân công tài xế, thực hiện chuyến hoặc thanh toán.
